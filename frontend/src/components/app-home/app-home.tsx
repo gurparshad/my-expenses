@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, State, h } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
 
@@ -9,17 +9,21 @@ import { RouterHistory } from '@stencil-community/router';
 })
 export class AppHome {
   @Prop() history: RouterHistory;
+  @State() expenses: any[] = [];
 
   private expenseApi: ExpenseApi;
-  private expenses: any[] = [];
 
   constructor() {
     this.handleRowClick = this.handleRowClick.bind(this);
   }
 
   async componentWillLoad() {
-    this.expenseApi = new ExpenseApi();
+    await this.fetchExpenses();
+  }
+
+  private async fetchExpenses() {
     try {
+      this.expenseApi = new ExpenseApi();
       this.expenses = await this.expenseApi.getExpenses();
       console.log('Expenses:', this.expenses);
     } catch (error) {
@@ -35,8 +39,8 @@ export class AppHome {
     console.log('Deleting expense:', expenseId);
     try {
       await this.expenseApi.deleteExpense(expenseId);
-      // i think we should fetch the list again from database.
-      this.expenses = this.expenses.filter(expense => expense.id !== expenseId);
+      // Fetch expenses again after deletion
+      await this.fetchExpenses();
       console.log('Expense deleted successfully.');
     } catch (error) {
       console.error('Error deleting expense:', error);

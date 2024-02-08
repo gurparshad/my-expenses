@@ -18,6 +18,8 @@ export namespace Components {
     interface CreateExpense {
         "history": RouterHistory;
     }
+    interface ExpenseChart {
+    }
     interface ExpenseDetailsTwo {
         "match": MatchResults;
     }
@@ -47,6 +49,12 @@ declare global {
         prototype: HTMLCreateExpenseElement;
         new (): HTMLCreateExpenseElement;
     };
+    interface HTMLExpenseChartElement extends Components.ExpenseChart, HTMLStencilElement {
+    }
+    var HTMLExpenseChartElement: {
+        prototype: HTMLExpenseChartElement;
+        new (): HTMLExpenseChartElement;
+    };
     interface HTMLExpenseDetailsTwoElement extends Components.ExpenseDetailsTwo, HTMLStencilElement {
     }
     var HTMLExpenseDetailsTwoElement: {
@@ -58,6 +66,7 @@ declare global {
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
         "create-expense": HTMLCreateExpenseElement;
+        "expense-chart": HTMLExpenseChartElement;
         "expense-details-two": HTMLExpenseDetailsTwoElement;
     }
 }
@@ -73,6 +82,8 @@ declare namespace LocalJSX {
     interface CreateExpense {
         "history"?: RouterHistory;
     }
+    interface ExpenseChart {
+    }
     interface ExpenseDetailsTwo {
         "match"?: MatchResults;
     }
@@ -81,6 +92,7 @@ declare namespace LocalJSX {
         "app-profile": AppProfile;
         "app-root": AppRoot;
         "create-expense": CreateExpense;
+        "expense-chart": ExpenseChart;
         "expense-details-two": ExpenseDetailsTwo;
     }
 }
@@ -92,6 +104,7 @@ declare module "@stencil/core" {
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "create-expense": LocalJSX.CreateExpense & JSXBase.HTMLAttributes<HTMLCreateExpenseElement>;
+            "expense-chart": LocalJSX.ExpenseChart & JSXBase.HTMLAttributes<HTMLExpenseChartElement>;
             "expense-details-two": LocalJSX.ExpenseDetailsTwo & JSXBase.HTMLAttributes<HTMLExpenseDetailsTwoElement>;
         }
     }

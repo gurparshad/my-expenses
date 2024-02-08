@@ -7,20 +7,8 @@
   },
   {
     "id": 3,
-    "description": "Gasoline",
-    "date": "2024-02-05",
-    "amount": 40
-  },
-  {
-    "id": 4,
-    "description": "abcd",
+    "description": "abc",
     "date": "2024-02-08",
     "amount": 123
-  },
-  {
-    "id": 5,
-    "description": "new expense",
-    "date": "2024-02-08",
-    "amount": 234
   }
 ]
