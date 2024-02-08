@@ -1,7 +1,24 @@
 import express from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
+import expensesRouter from './expenses/routes';
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
+app.use(helmet());
+app.use(bodyParser.json());
+
+const corsOptions = {
+  origin: process.env.CLIENT_APP_URL,
+  methods: 'GET',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.use('/expenses', expensesRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

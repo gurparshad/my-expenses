@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "description": "Groceries",
+    "date": "2024-02-07",
+    "amount": 50.25
+  },
+  {
+    "id": 2,
+    "description": "Dinner with friends",
+    "date": "2024-02-06",
+    "amount": 80.75
+  },
+  {
+    "id": 3,
+    "description": "Gasoline",
+    "date": "2024-02-05",
+    "amount": 40
+  }
+]

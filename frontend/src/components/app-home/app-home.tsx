@@ -1,4 +1,5 @@
 import { Component, h } from '@stencil/core';
+import { ExpenseApi } from '../../api';
 
 @Component({
   tag: 'app-home',
@@ -6,17 +7,42 @@ import { Component, h } from '@stencil/core';
   shadow: true,
 })
 export class AppHome {
+  private expenseApi: ExpenseApi;
+  private expenses: any[] = [];
+
+  async componentWillLoad() {
+    this.expenseApi = new ExpenseApi();
+    try {
+      this.expenses = await this.expenseApi.getExpenses();
+      console.log('Expenses:', this.expenses);
+    } catch (error) {
+      console.error('Error fetching expenses:', error);
+    }
+  }
+
   render() {
     return (
       <div class="app-home">
-        <p>
-          Welcome to the Stencil App Starter. You can use this starter to build entire apps all with web components using Stencil! Check out our docs on{' '}
-          <a href="https://stenciljs.com">stenciljs.com</a> to get started.
-        </p>
-
-        <stencil-route-link url="/profile/stencil">
-          <button>Profile page</button>
-        </stencil-route-link>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.expenses.map(expense => (
+              <tr key={expense.id}>
+                <td>{expense.id}</td>
+                <td>{expense.description}</td>
+                <td>{expense.date}</td>
+                <td>{expense.amount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }
