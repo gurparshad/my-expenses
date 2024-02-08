@@ -38,8 +38,8 @@ export class ExpenseApi {
     );
   };
 
-  // TODO: update the update method
-  public updateExpense = async (description: string, amount: number) => {
+  public updateExpense = async (id: string, description: string, amount: number) => {
+    console.log("id->", id);
     return await this.handleRequest(
       this.client.put(this.routes.CREATE_EXPENSE, {
         description: description,
@@ -54,17 +54,17 @@ export class ExpenseApi {
     );
   };
 
-  public getExpense = async () => {
+  public getExpense = async (expense_id: string) => {
     return await this.handleRequest(
-      this.client.get(this.routes.GET_EXPENSES)
+      this.client.get(this.routes.GET_EXPENSE(expense_id))
     );
   };
 
   // TODO: update the delete method
-  // public deleteExpense = async (id: number) => {
-  //   return await this.handleRequest(
-  //     this.client.delete(this.routes.GET_EXPENSES)
-  //   );
-  // };
+  public deleteExpense = async (expense_id: string) => {
+    return await this.handleRequest(
+      this.client.delete(this.routes.DELETE_EXPENSE(expense_id))
+    );
+  };
 
 }

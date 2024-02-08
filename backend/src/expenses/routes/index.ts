@@ -17,6 +17,27 @@ expensesRouter.get('/', async (req: Request, res: Response) => {
   }
 })
 
+expensesRouter.get('/:expenseId', async (req: Request, res: Response) => {
+  const expenseId = req.params.expenseId;
+  try {
+    const jsonData = fs.readFileSync(jsonFilePath, 'utf8');
+    const expenses = JSON.parse(jsonData);
+    console.log("expenses->>", expenses);
+    console.log("type fo -->>", typeof expenseId)
+    const expense = expenses.find((exp: any) => exp.id === Number(expenseId));
+    console.log("expense-->>", expense);
+
+    if (expense) {
+      res.json(expense);
+    } else {
+      res.status(404).json({ error: 'Expense not found' });
+    }
+  } catch (error) {
+    console.error('Error reading JSON file:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 expensesRouter.post('/', async (req: Request, res: Response) => {
   try {
     const { description, amount } = req.body;

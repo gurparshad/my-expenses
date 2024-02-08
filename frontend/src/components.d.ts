@@ -5,14 +5,21 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { MatchResults } from "@stencil-community/router";
+import { MatchResults, RouterHistory } from "@stencil-community/router";
 export namespace Components {
     interface AppHome {
+        "history": RouterHistory;
     }
     interface AppProfile {
         "match": MatchResults;
     }
     interface AppRoot {
+    }
+    interface CreateExpense {
+        "history": RouterHistory;
+    }
+    interface ExpenseDetailsTwo {
+        "match": MatchResults;
     }
 }
 declare global {
@@ -34,24 +41,47 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLCreateExpenseElement extends Components.CreateExpense, HTMLStencilElement {
+    }
+    var HTMLCreateExpenseElement: {
+        prototype: HTMLCreateExpenseElement;
+        new (): HTMLCreateExpenseElement;
+    };
+    interface HTMLExpenseDetailsTwoElement extends Components.ExpenseDetailsTwo, HTMLStencilElement {
+    }
+    var HTMLExpenseDetailsTwoElement: {
+        prototype: HTMLExpenseDetailsTwoElement;
+        new (): HTMLExpenseDetailsTwoElement;
+    };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "create-expense": HTMLCreateExpenseElement;
+        "expense-details-two": HTMLExpenseDetailsTwoElement;
     }
 }
 declare namespace LocalJSX {
     interface AppHome {
+        "history"?: RouterHistory;
     }
     interface AppProfile {
         "match"?: MatchResults;
     }
     interface AppRoot {
     }
+    interface CreateExpense {
+        "history"?: RouterHistory;
+    }
+    interface ExpenseDetailsTwo {
+        "match"?: MatchResults;
+    }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
+        "create-expense": CreateExpense;
+        "expense-details-two": ExpenseDetailsTwo;
     }
 }
 export { LocalJSX as JSX };
@@ -61,6 +91,8 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "create-expense": LocalJSX.CreateExpense & JSXBase.HTMLAttributes<HTMLCreateExpenseElement>;
+            "expense-details-two": LocalJSX.ExpenseDetailsTwo & JSXBase.HTMLAttributes<HTMLExpenseDetailsTwoElement>;
         }
     }
 }
