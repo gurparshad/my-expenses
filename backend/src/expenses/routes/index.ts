@@ -6,6 +6,7 @@ const expensesRouter = express.Router();
 
 const jsonFilePath = path.join(__dirname, '../../data/expenses.json');
 
+// TODO: Expenses need pagination
 expensesRouter.get('/', async (req: Request, res: Response) => {
   try {
     const jsonData = fs.readFileSync(jsonFilePath, 'utf8');

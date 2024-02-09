@@ -16,6 +16,7 @@ export class CreateExpense {
 
   private expenseApi: ExpenseApi;
 
+  // TODO: Why this here.
   componentWillLoad() {
     this.expenseApi = new ExpenseApi();
   }

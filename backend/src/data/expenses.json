@@ -1,14 +1,62 @@
 [
   {
+    "id": 1,
+    "description": "Dinner with friends",
+    "date": "2024-01-06",
+    "amount": 60.75
+  },
+  {
     "id": 2,
+    "description": "somethinmg 1",
+    "date": "2024-01-08",
+    "amount": 13
+  },
+  {
+    "id": 3,
+    "description": "Dinner with friends",
+    "date": "2024-01-06",
+    "amount": 8.75
+  },
+  {
+    "id": 4,
+    "description": "somethinmg 1",
+    "date": "2024-01-08",
+    "amount": 1230
+  },
+  {
+    "id": 5,
     "description": "Dinner with friends",
     "date": "2024-02-06",
     "amount": 80.75
   },
   {
-    "id": 3,
-    "description": "abc",
+    "id": 6,
+    "description": "somethinmg 1",
     "date": "2024-02-08",
     "amount": 123
+  },
+  {
+    "id": 7,
+    "description": "somethinmg 2",
+    "date": "2024-02-08",
+    "amount": 200
+  },
+  {
+    "id": 8,
+    "description": "somethinmg 3",
+    "date": "2024-02-08",
+    "amount": 90
+  },
+  {
+    "id": 9,
+    "description": "somethinmg 4",
+    "date": "2024-02-08",
+    "amount": 10
+  },
+  {
+    "id": 10,
+    "description": "somethinmg 5",
+    "date": "2024-02-08",
+    "amount": 560
   }
 ]
