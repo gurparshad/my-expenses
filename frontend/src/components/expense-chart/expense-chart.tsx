@@ -11,7 +11,23 @@ export class ExpenseChart {
   @State() selectedYear: number;
   private canvasRef: HTMLCanvasElement;
   private expenseApi: ExpenseApi;
-  private expenses: any[];
+  private expenses: any;
+
+  private categories = [
+    'food-and-dining',
+    'transportation',
+    'housing',
+    'utilities',
+    'entertainment',
+    'health-and-fitness',
+    'shopping',
+    'travel',
+    'education',
+    'personal-care',
+    'others',
+  ];
+
+  private months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   private async fetchExpenses() {
     try {
@@ -22,32 +38,25 @@ export class ExpenseChart {
     }
   }
 
-  private calculateMonthlyExpenses() {
-    const monthlyExpenses: { [month: string]: number } = {};
-
-    this.expenses.forEach(expense => {
+  private calculateMonthlyCategoryExpenses() {
+    const monthlyCategoryExpenses: { [month: string]: { [category: string]: number } } = {};
+    console.log('this.expenses.expenses-->>', this.expenses);
+    this.expenses.expenses.forEach(expense => {
       const month = new Date(expense.date).getMonth();
+      const category = expense.category;
 
-      if (!monthlyExpenses[month]) {
-        monthlyExpenses[month] = 0;
+      if (!monthlyCategoryExpenses[month]) {
+        monthlyCategoryExpenses[month] = {};
       }
 
-      monthlyExpenses[month] += expense.amount;
+      if (!monthlyCategoryExpenses[month][category]) {
+        monthlyCategoryExpenses[month][category] = 0;
+      }
+
+      monthlyCategoryExpenses[month][category] += expense.amount;
     });
-
-    console.log('monthlyExpenses-->>', monthlyExpenses);
-
-    const totalExpensesPerMonth: number[] = [];
-
-    for (let i = 0; i < 12; i++) {
-      if (monthlyExpenses[i] !== undefined) {
-        totalExpensesPerMonth.push(monthlyExpenses[i]);
-      } else {
-        totalExpensesPerMonth.push(0);
-      }
-    }
-
-    return totalExpensesPerMonth;
+    console.log('monthlyCategoryExpenses-->>', monthlyCategoryExpenses);
+    return monthlyCategoryExpenses;
   }
 
   handleYearChange(event: Event) {
@@ -63,28 +72,35 @@ export class ExpenseChart {
     this.renderChart();
   }
 
+  private generateColor(index: number) {
+    // Generate a random color based on index
+    // You can use a different method to generate colors if needed
+    const colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D'];
+    return colors[index % colors.length];
+  }
+
   // TODO: Have to add year selection as well.
-  // Expenses need pagination
 
   private renderChart() {
+    const monthlyCategoryExpenses = this.calculateMonthlyCategoryExpenses();
+    const months = Object.keys(monthlyCategoryExpenses);
+    const datasets = this.categories.map((category, index) => ({
+      label: category,
+      data: months.map(month => monthlyCategoryExpenses[month][category] || 0),
+      backgroundColor: this.generateColor(index),
+    }));
+
     const ctx = this.canvasRef.getContext('2d');
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        datasets: [
-          {
-            label: 'Monthly Expenses',
-            data: this.calculateMonthlyExpenses(),
-            borderWidth: 1,
-          },
-        ],
+        labels: this.months,
+        datasets: datasets,
       },
       options: {
         scales: {
-          y: {
-            beginAtZero: true,
-          },
+          x: { stacked: true },
+          y: { stacked: true },
         },
       },
     });

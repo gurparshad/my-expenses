@@ -64,9 +64,9 @@ export class AppHome {
     try {
       this.expenseApi = new ExpenseApi();
       const response = await this.expenseApi.getExpenses(this.currentPage, this.pageSize, this.selectedCategory, this.startDate, this.endDate);
+      console.log('response-->>', response);
       this.expenses = response.expenses;
       this.totalPages = response.totalPages;
-      console.log('Expenses:', this.expenses);
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
@@ -128,12 +128,10 @@ export class AppHome {
   }
 
   private async handleDeleteClick(expenseId: string) {
-    console.log('Deleting expense:', expenseId);
     try {
       await this.expenseApi.deleteExpense(expenseId);
       // Fetch expenses again after deletion
       await this.fetchExpenses();
-      console.log('Expense deleted successfully.');
     } catch (error) {
       console.error('Error deleting expense:', error);
     }

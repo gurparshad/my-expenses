@@ -39,7 +39,6 @@ export class CreateExpense {
 
     try {
       await this.expenseApi.createExpense(this.description, this.amount);
-      console.log('Expense created successfully!');
       this.history.push('/');
     } catch (error) {
       console.error('Error creating expense:', error);

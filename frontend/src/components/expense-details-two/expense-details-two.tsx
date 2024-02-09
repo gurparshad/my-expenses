@@ -18,7 +18,6 @@ export class ExpenseDetails {
     this.expenseApi = new ExpenseApi();
     try {
       this.expenseDetails = await this.expenseApi.getExpense(expenseId);
-      console.log('Expenses:', this.expenseDetails);
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
