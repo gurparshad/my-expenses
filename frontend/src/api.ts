@@ -57,6 +57,8 @@ export class ExpenseApi {
 
   // TODO: check if we have to add optional arguments or not.
   public getExpenses = async (pageNumber?: number, pageSize?: number, category?: string, startDate?: string, endDate?: string) => {
+    console.log('startDate-->', startDate);
+    console.log("endDate-->>", endDate);
     return await this.handleRequest(
       this.client.get(this.routes.GET_EXPENSES, {
         params: {

@@ -47,8 +47,6 @@ expensesRouter.get('/', async (req: Request, res: Response) => {
     else {
       res.json({
         totalExpenses: expenses.length,
-        currentPage: page,
-        pageSize: pageSize,
         expenses: expenses,
       });
     }

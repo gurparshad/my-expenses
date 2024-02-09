@@ -1,6 +1,7 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
+import { generateYears } from '../../utils/generateYears';
 
 @Component({
   tag: 'app-home',
@@ -15,6 +16,7 @@ export class AppHome {
   @State() pageSize: number = 15;
   @State() selectedCategory: string = '';
   @State() selectedMonth: string = '';
+  @State() selectedYear: string = '2024';
   @State() startDate: string = '';
   @State() endDate: string = '';
 
@@ -47,6 +49,8 @@ export class AppHome {
     { value: '12', label: 'December' },
   ];
 
+  private years = generateYears();
+
   private expenseApi: ExpenseApi;
 
   constructor() {
@@ -57,6 +61,9 @@ export class AppHome {
     const params = new URLSearchParams(window.location.search);
     this.currentPage = parseInt(params.get('page') || '1');
     this.selectedCategory = params.get('category') || '';
+    this.startDate = params.get('startDate') || '';
+    this.endDate = params.get('endDate') || '';
+    this.selectedMonth = this.startDate ? this.startDate.split('-')[1] : '';
     await this.fetchExpenses();
   }
 
@@ -76,10 +83,12 @@ export class AppHome {
     let startDate: string;
     let endDate: string;
     const selectedMonth = (event.target as HTMLSelectElement).value;
+    console.log('selectedMonth-->>', selectedMonth);
+    // here selected month also include th year we have to separate 2 of them.
     if (selectedMonth) {
-      startDate = `${selectedMonth}-01`;
+      startDate = `${this.selectedYear}-${selectedMonth}-01`;
       // TODO: need a logic to add 31,30 or 28
-      endDate = `${selectedMonth}-31`;
+      endDate = `${this.selectedYear}-${selectedMonth}-31`;
     } else {
       startDate = '';
       endDate = '';
@@ -94,13 +103,28 @@ export class AppHome {
     this.fetchExpenses();
   }
 
+  private handleYearChange(event: Event) {
+    this.selectedYear = (event.target as HTMLSelectElement).value;
+    if (this.selectedMonth) {
+      this.startDate = `${this.selectedYear}-${this.selectedMonth}-01`;
+      this.endDate = `${this.selectedYear}-${this.selectedMonth}-31`;
+    } else {
+      this.startDate = `${this.selectedYear}-01-01`;
+      this.endDate = `${this.selectedYear}-12-31`;
+    }
+    const params = new URLSearchParams(window.location.search);
+    params.set('startDate', this.startDate);
+    params.set('endDate', this.endDate);
+    this.history.push(window.location.pathname + '?' + params.toString());
+    this.fetchExpenses();
+  }
+
   private async nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       const params = new URLSearchParams(window.location.search);
       params.set('page', this.currentPage.toString());
       this.history.push(window.location.pathname + '?' + params.toString());
-
       await this.fetchExpenses();
     }
   }
@@ -153,7 +177,13 @@ export class AppHome {
           <select id="month-select" onChange={event => this.handleMonthChange(event)}>
             <option value="">All</option>
             {this.months.map(month => (
-              <option value={`2024-${month.value}`}>{month.label}</option>
+              <option value={month.value}>{month.label}</option>
+            ))}
+          </select>
+          <label htmlFor="year-select">Select Year:</label>
+          <select id="year-select" onChange={event => this.handleYearChange(event)}>
+            {this.years.map(year => (
+              <option value={year}>{year}</option>
             ))}
           </select>
         </div>
