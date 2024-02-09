@@ -27,17 +27,20 @@ expensesRouter.get('/', async (req: Request, res: Response) => {
       expenses = expenses.filter((expense: any) => expense.category === category);
     }
 
-    if (page && pageSize) {
-      const pageNumber = parseInt(page as string, 10);
-      const size = parseInt(pageSize as string, 10);
-      const startIndex = (pageNumber - 1) * size;
-      const endIndex = startIndex + size;
-      expenses = expenses.slice(startIndex, endIndex);
-    }
-
+    const pageNumber = parseInt(page as string, 10);
+    const size = parseInt(pageSize as string, 10);
+    const startIndex = (pageNumber - 1) * size;
+    const endIndex = startIndex + size;
+    const paginatedExpenses = expenses.slice(startIndex, endIndex);
 
     console.log("expenses-->>", expenses);
-    res.json(expenses);
+    res.json({
+      totalExpenses: expenses.length,
+      totalPages: Math.ceil(expenses.length / size),
+      currentPage: page,
+      pageSize: pageSize,
+      expenses: paginatedExpenses,
+    });
   } catch (error) {
     console.error('Error reading JSON file:', error);
     res.status(500).json({ error: 'Internal server error' });

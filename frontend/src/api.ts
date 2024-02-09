@@ -9,6 +9,7 @@ export class ExpenseApi {
     GET_EXPENSE: (expense_id: string) => `expenses/${expense_id}`,
     UPDATE_EXPENSE: (expense_id: string) => `expenses/${expense_id}`,
     DELETE_EXPENSE: (expense_id: string) => `expenses/${expense_id}`,
+    GET_EXPENSE_CATEGORIES: 'expense/categories'
   };
 
   private handleRequest = async (request: Promise<AxiosResponse<any>>) =>
@@ -48,9 +49,24 @@ export class ExpenseApi {
     );
   };
 
-  public getExpenses = async () => {
+  public getCategories = async () => {
     return await this.handleRequest(
-      this.client.get(this.routes.GET_EXPENSES)
+      this.client.get(this.routes.GET_EXPENSE_CATEGORIES)
+    );
+  }
+
+  // TODO: check if we have to add optional arguments or not.
+  public getExpenses = async (pageNumber?: number, pageSize?: number, category?: string, startDate?: string, endDate?: string) => {
+    return await this.handleRequest(
+      this.client.get(this.routes.GET_EXPENSES, {
+        params: {
+          page: pageNumber,
+          pageSize: pageSize,
+          category: category,
+          startDate: startDate,
+          endDate: endDate
+        },
+      })
     );
   };
 

@@ -10,6 +10,42 @@ import { RouterHistory } from '@stencil-community/router';
 export class AppHome {
   @Prop() history: RouterHistory;
   @State() expenses: any[] = [];
+  @State() currentPage: number = 1;
+  @State() totalPages: number = 1;
+  @State() pageSize: number = 15;
+  @State() selectedCategory: string = '';
+  @State() selectedMonth: string = '';
+  @State() startDate: string = '';
+  @State() endDate: string = '';
+
+  private categories = [
+    'food-and-dining',
+    'transportation',
+    'housing',
+    'utilities',
+    'entertainment',
+    'health-and-fitness',
+    'shopping',
+    'travel',
+    'education',
+    'personal-care',
+    'others',
+  ];
+
+  private months = [
+    { value: '01', label: 'January' },
+    { value: '02', label: 'February' },
+    { value: '03', label: 'March' },
+    { value: '04', label: 'April' },
+    { value: '05', label: 'May' },
+    { value: '06', label: 'June' },
+    { value: '07', label: 'July' },
+    { value: '08', label: 'August' },
+    { value: '09', label: 'September' },
+    { value: '10', label: 'October' },
+    { value: '11', label: 'November' },
+    { value: '12', label: 'December' },
+  ];
 
   private expenseApi: ExpenseApi;
 
@@ -18,24 +54,80 @@ export class AppHome {
   }
 
   async componentWillLoad() {
+    const params = new URLSearchParams(window.location.search);
+    this.currentPage = parseInt(params.get('page') || '1');
+    this.selectedCategory = params.get('category') || '';
     await this.fetchExpenses();
   }
 
   private async fetchExpenses() {
     try {
       this.expenseApi = new ExpenseApi();
-      this.expenses = await this.expenseApi.getExpenses();
+      const response = await this.expenseApi.getExpenses(this.currentPage, this.pageSize, this.selectedCategory, this.startDate, this.endDate);
+      this.expenses = response.expenses;
+      this.totalPages = response.totalPages;
       console.log('Expenses:', this.expenses);
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
   }
 
+  private handleMonthChange(event: Event) {
+    let startDate: string;
+    let endDate: string;
+    const selectedMonth = (event.target as HTMLSelectElement).value;
+    if (selectedMonth) {
+      startDate = `${selectedMonth}-01`;
+      // TODO: need a logic to add 31,30 or 28
+      endDate = `${selectedMonth}-31`;
+    } else {
+      startDate = '';
+      endDate = '';
+    }
+    this.startDate = startDate;
+    this.endDate = endDate;
+    this.selectedMonth = selectedMonth;
+    const params = new URLSearchParams(window.location.search);
+    params.set('startDate', this.startDate);
+    params.set('endDate', this.endDate);
+    this.history.push(window.location.pathname + '?' + params.toString());
+    this.fetchExpenses();
+  }
+
+  private async nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      const params = new URLSearchParams(window.location.search);
+      params.set('page', this.currentPage.toString());
+      this.history.push(window.location.pathname + '?' + params.toString());
+
+      await this.fetchExpenses();
+    }
+  }
+
+  private async prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      const params = new URLSearchParams(window.location.search);
+      params.set('page', this.currentPage.toString());
+      this.history.push(window.location.pathname + '?' + params.toString());
+      await this.fetchExpenses();
+    }
+  }
+
+  private async handleCategorySelect(event: any) {
+    this.selectedCategory = event.target.value;
+    const params = new URLSearchParams(window.location.search);
+    params.set('category', this.selectedCategory);
+    this.history.push(window.location.pathname + '?' + params.toString());
+    this.fetchExpenses();
+  }
+
   handleRowClick(expenseId: string) {
     this.history.push(`/details/${expenseId}`);
   }
 
-  async handleDeleteClick(expenseId: string) {
+  private async handleDeleteClick(expenseId: string) {
     console.log('Deleting expense:', expenseId);
     try {
       await this.expenseApi.deleteExpense(expenseId);
@@ -50,6 +142,23 @@ export class AppHome {
   render() {
     return (
       <div class="app-home">
+        <div class="filter">
+          <label htmlFor="category-select">Select Category:</label>
+          <select id="category-select" onChange={event => this.handleCategorySelect(event)}>
+            <option value="">All</option>
+            {/* need a key in the map */}
+            {this.categories.map(category => (
+              <option value={category}>{category}</option>
+            ))}
+          </select>
+          <label htmlFor="month-select">Select Month:</label>
+          <select id="month-select" onChange={event => this.handleMonthChange(event)}>
+            <option value="">All</option>
+            {this.months.map(month => (
+              <option value={`2024-${month.value}`}>{month.label}</option>
+            ))}
+          </select>
+        </div>
         <table>
           <thead>
             <tr>
@@ -62,7 +171,6 @@ export class AppHome {
           <tbody>
             {this.expenses.map(expense => (
               <tr key={expense.id} onClick={() => this.handleRowClick(expense.id)}>
-                <td>{expense.id}</td>
                 <td>{expense.id}</td>
                 <td>{expense.description}</td>
                 <td>{expense.date}</td>
@@ -81,6 +189,17 @@ export class AppHome {
             ))}
           </tbody>
         </table>
+        <div class="pagination">
+          <button onClick={() => this.prevPage()} disabled={this.currentPage === 1}>
+            Previous
+          </button>
+          <span>
+            Page {this.currentPage} of {this.totalPages}
+          </span>
+          <button onClick={() => this.nextPage()} disabled={this.currentPage === this.totalPages}>
+            Next
+          </button>
+        </div>
       </div>
     );
   }
