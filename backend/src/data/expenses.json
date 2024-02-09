@@ -2,61 +2,211 @@
   {
     "id": 1,
     "description": "Dinner with friends",
-    "date": "2024-01-06",
-    "amount": 60.75
+    "date": "2024-01-06 00:00:00",
+    "amount": 60.75,
+    "category": "food-and-dining"
   },
   {
     "id": 2,
-    "description": "somethinmg 1",
-    "date": "2024-01-08",
-    "amount": 13
+    "description": "something 1",
+    "date": "2024-01-08 00:00:00",
+    "amount": 13,
+    "category": "transportation"
   },
   {
     "id": 3,
     "description": "Dinner with friends",
-    "date": "2024-01-06",
-    "amount": 8.75
+    "date": "2024-01-06 00:00:00",
+    "amount": 8.75,
+    "category": "housing"
   },
   {
     "id": 4,
-    "description": "somethinmg 1",
-    "date": "2024-01-08",
-    "amount": 1230
+    "description": "something 1",
+    "date": "2024-01-08 00:00:00",
+    "amount": 1230,
+    "category": "utilities"
   },
   {
     "id": 5,
     "description": "Dinner with friends",
-    "date": "2024-02-06",
-    "amount": 80.75
+    "date": "2024-02-06 00:00:00",
+    "amount": 80.75,
+    "category": "entertainment"
   },
   {
     "id": 6,
-    "description": "somethinmg 1",
-    "date": "2024-02-08",
-    "amount": 123
+    "description": "something 1",
+    "date": "2024-02-08 00:00:00",
+    "amount": 123,
+    "category": "health-and-fitness"
   },
   {
     "id": 7,
-    "description": "somethinmg 2",
-    "date": "2024-02-08",
-    "amount": 200
+    "description": "something 2",
+    "date": "2024-02-08 00:00:00",
+    "amount": 200,
+    "category": "shopping"
   },
   {
     "id": 8,
-    "description": "somethinmg 3",
-    "date": "2024-02-08",
-    "amount": 90
+    "description": "something 3",
+    "date": "2024-02-08 00:00:00",
+    "amount": 90,
+    "category": "travel"
   },
   {
     "id": 9,
-    "description": "somethinmg 4",
-    "date": "2024-02-08",
-    "amount": 10
+    "description": "something 4",
+    "date": "2024-02-08 00:00:00",
+    "amount": 10,
+    "category": "education"
   },
   {
     "id": 10,
-    "description": "somethinmg 5",
-    "date": "2024-02-08",
-    "amount": 560
+    "description": "something 5",
+    "date": "2024-02-08 00:00:00",
+    "amount": 560,
+    "category": "personal-care"
+  },
+  {
+    "id": 11,
+    "description": "Lunch at a cafe",
+    "date": "2024-03-12 00:00:00",
+    "amount": 25.50,
+    "category": "food-and-dining"
+  },
+  {
+    "id": 12,
+    "description": "Taxi ride",
+    "date": "2024-03-15 00:00:00",
+    "amount": 35.75,
+    "category": "transportation"
+  },
+  {
+    "id": 13,
+    "description": "Rent payment",
+    "date": "2024-03-01 00:00:00",
+    "amount": 1200.00,
+    "category": "housing"
+  },
+  {
+    "id": 14,
+    "description": "Electricity bill",
+    "date": "2024-03-07 00:00:00",
+    "amount": 85.00,
+    "category": "utilities"
+  },
+  {
+    "id": 15,
+    "description": "Movie tickets",
+    "date": "2024-04-05 00:00:00",
+    "amount": 40.00,
+    "category": "entertainment"
+  },
+  {
+    "id": 16,
+    "description": "Gym membership",
+    "date": "2024-04-10 00:00:00",
+    "amount": 75.00,
+    "category": "health-and-fitness"
+  },
+  {
+    "id": 17,
+    "description": "Clothing purchase",
+    "date": "2024-04-18 00:00:00",
+    "amount": 120.00,
+    "category": "shopping"
+  },
+  {
+    "id": 18,
+    "description": "Flight ticket",
+    "date": "2024-05-02 00:00:00",
+    "amount": 300.00,
+    "category": "travel"
+  },
+  {
+    "id": 19,
+    "description": "Textbook purchase",
+    "date": "2024-05-10 00:00:00",
+    "amount": 75.00,
+    "category": "education"
+  },
+  {
+    "id": 20,
+    "description": "Spa treatment",
+    "date": "2024-05-15 00:00:00",
+    "amount": 150.00,
+    "category": "personal-care"
+  },
+  {
+    "id": 21,
+    "description": "Dinner at a fancy restaurant",
+    "date": "2024-06-03 00:00:00",
+    "amount": 100.00,
+    "category": "food-and-dining"
+  },
+  {
+    "id": 22,
+    "description": "Gasoline refill",
+    "date": "2024-06-07 00:00:00",
+    "amount": 45.00,
+    "category": "transportation"
+  },
+  {
+    "id": 23,
+    "description": "Internet bill",
+    "date": "2024-06-12 00:00:00",
+    "amount": 65.00,
+    "category": "utilities"
+  },
+  {
+    "id": 24,
+    "description": "Concert tickets",
+    "date": "2024-07-05 00:00:00",
+    "amount": 60.00,
+    "category": "entertainment"
+  },
+  {
+    "id": 25,
+    "description": "Yoga class subscription",
+    "date": "2024-07-10 00:00:00",
+    "amount": 50.00,
+    "category": "health-and-fitness"
+  },
+  {
+    "id": 26,
+    "description": "Home appliance purchase",
+    "date": "2024-07-15 00:00:00",
+    "amount": 500.00,
+    "category": "shopping"
+  },
+  {
+    "id": 27,
+    "description": "Hotel accommodation",
+    "date": "2024-08-02 00:00:00",
+    "amount": 150.00,
+    "category": "travel"
+  },
+  {
+    "id": 28,
+    "description": "Language course enrollment",
+    "date": "2024-08-10 00:00:00",
+    "amount": 200.00,
+    "category": "education"
+  },
+  {
+    "id": 29,
+    "description": "Haircut",
+    "date": "2024-08-18 00:00:00",
+    "amount": 30.00,
+    "category": "personal-care"
+  },
+  {
+    "id": 30,
+    "description": "Brunch with friends",
+    "date": "2024-09-05 00:00:00",
+    "amount": 40.00,
+    "category": "food-and-dining"
   }
 ]

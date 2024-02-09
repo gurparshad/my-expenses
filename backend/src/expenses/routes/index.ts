@@ -9,8 +9,34 @@ const jsonFilePath = path.join(__dirname, '../../data/expenses.json');
 // TODO: Expenses need pagination
 expensesRouter.get('/', async (req: Request, res: Response) => {
   try {
+    const { startDate, endDate, category, page, pageSize } = req.query;
     const jsonData = fs.readFileSync(jsonFilePath, 'utf8');
-    const expenses = JSON.parse(jsonData);
+    let expenses = JSON.parse(jsonData);
+    if (startDate && endDate) {
+      expenses = expenses.filter((expense: any) => {
+        const expenseDate = new Date(expense.date);
+        // @ts-ignore
+        const startDateObj = new Date(startDate);
+        // @ts-ignore
+        const endDateObj = new Date(endDate);
+        return expenseDate >= startDateObj && expenseDate <= endDateObj;
+      });
+    }
+
+    if (category) {
+      expenses = expenses.filter((expense: any) => expense.category === category);
+    }
+
+    if (page && pageSize) {
+      const pageNumber = parseInt(page as string, 10);
+      const size = parseInt(pageSize as string, 10);
+      const startIndex = (pageNumber - 1) * size;
+      const endIndex = startIndex + size;
+      expenses = expenses.slice(startIndex, endIndex);
+    }
+
+
+    console.log("expenses-->>", expenses);
     res.json(expenses);
   } catch (error) {
     console.error('Error reading JSON file:', error);
