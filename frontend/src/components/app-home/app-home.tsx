@@ -80,22 +80,16 @@ export class AppHome {
   }
 
   private handleMonthChange(event: Event) {
-    let startDate: string;
-    let endDate: string;
-    const selectedMonth = (event.target as HTMLSelectElement).value;
-    console.log('selectedMonth-->>', selectedMonth);
+    this.selectedMonth = (event.target as HTMLSelectElement).value;
     // here selected month also include th year we have to separate 2 of them.
-    if (selectedMonth) {
-      startDate = `${this.selectedYear}-${selectedMonth}-01`;
+    if (this.selectedMonth) {
+      this.startDate = `${this.selectedYear}-${this.selectedMonth}-01`;
       // TODO: need a logic to add 31,30 or 28
-      endDate = `${this.selectedYear}-${selectedMonth}-31`;
+      this.endDate = `${this.selectedYear}-${this.selectedMonth}-31`;
     } else {
-      startDate = '';
-      endDate = '';
+      this.startDate = `${this.selectedYear}-01-01`;
+      this.endDate = `${this.selectedYear}-12-31`;
     }
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.selectedMonth = selectedMonth;
     const params = new URLSearchParams(window.location.search);
     params.set('startDate', this.startDate);
     params.set('endDate', this.endDate);
