@@ -64,6 +64,7 @@ export class AppHome {
     this.startDate = params.get('startDate') || '';
     this.endDate = params.get('endDate') || '';
     this.selectedMonth = this.startDate ? this.startDate.split('-')[1] : '';
+    this.selectedYear = this.startDate ? this.startDate.split('-')[0] : '';
     await this.fetchExpenses();
   }
 
@@ -71,7 +72,6 @@ export class AppHome {
     try {
       this.expenseApi = new ExpenseApi();
       const response = await this.expenseApi.getExpenses(this.currentPage, this.pageSize, this.selectedCategory, this.startDate, this.endDate);
-      console.log('response-->>', response);
       this.expenses = response.expenses;
       this.totalPages = response.totalPages;
     } catch (error) {
@@ -81,7 +81,6 @@ export class AppHome {
 
   private handleMonthChange(event: Event) {
     this.selectedMonth = (event.target as HTMLSelectElement).value;
-    // here selected month also include th year we have to separate 2 of them.
     if (this.selectedMonth) {
       this.startDate = `${this.selectedYear}-${this.selectedMonth}-01`;
       // TODO: need a logic to add 31,30 or 28
@@ -171,13 +170,17 @@ export class AppHome {
           <select id="month-select" onChange={event => this.handleMonthChange(event)}>
             <option value="">All</option>
             {this.months.map(month => (
-              <option value={month.value}>{month.label}</option>
+              <option value={month.value} selected={this.selectedMonth === month.value}>
+                {month.label}
+              </option>
             ))}
           </select>
           <label htmlFor="year-select">Select Year:</label>
           <select id="year-select" onChange={event => this.handleYearChange(event)}>
             {this.years.map(year => (
-              <option value={year}>{year}</option>
+              <option value={year} selected={Number(this.selectedYear) === year}>
+                {year}
+              </option>
             ))}
           </select>
         </div>
