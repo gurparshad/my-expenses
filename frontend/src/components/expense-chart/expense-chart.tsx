@@ -18,6 +18,7 @@ export class ExpenseChart {
   private canvasRef: HTMLCanvasElement;
   private expenseApi: ExpenseApi;
   private chartInstance: Chart;
+  private monthlyCategoryExpenses: { [month: string]: { [category: string]: number } } = {}; // Add state to store monthly category expenses
 
   private categories = [
     'food-and-dining',
@@ -37,70 +38,63 @@ export class ExpenseChart {
   private years = generateYears();
 
   private async fetchExpenses() {
-    console.log('in fetch expenses');
     try {
       this.expenseApi = new ExpenseApi();
       this.expenses = await this.expenseApi.getExpenses(undefined, undefined, undefined, this.startDate, this.endDate);
-      console.log('this.expenses--->>', this.expenses);
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
   }
 
   private calculateMonthlyCategoryExpenses() {
-    const monthlyCategoryExpenses: { [month: string]: { [category: string]: number } } = {};
-    console.log('this.expenses.expenses-->>', this.expenses);
+    this.monthlyCategoryExpenses = {};
     this.expenses.expenses.forEach(expense => {
       const month = new Date(expense.date).getMonth();
       const category = expense.category;
 
-      if (!monthlyCategoryExpenses[month]) {
-        monthlyCategoryExpenses[month] = {};
+      if (!this.monthlyCategoryExpenses[month]) {
+        this.monthlyCategoryExpenses[month] = {};
       }
 
-      if (!monthlyCategoryExpenses[month][category]) {
-        monthlyCategoryExpenses[month][category] = 0;
+      if (!this.monthlyCategoryExpenses[month][category]) {
+        this.monthlyCategoryExpenses[month][category] = 0;
       }
 
-      monthlyCategoryExpenses[month][category] += expense.amount;
+      this.monthlyCategoryExpenses[month][category] += expense.amount;
     });
-    console.log('monthlyCategoryExpenses-->>', monthlyCategoryExpenses);
-    return monthlyCategoryExpenses;
   }
 
   private renderChart() {
-    console.log('inside render chart');
-    // TODO: maybe add the monthlyCategoryExpenses in state and trigger only the data change instead of whole chart rerendering.
-    const monthlyCategoryExpenses = this.calculateMonthlyCategoryExpenses();
-    const months = Object.keys(monthlyCategoryExpenses);
+    const months = Object.keys(this.monthlyCategoryExpenses);
     const datasets = this.categories.map((category, index) => ({
       label: category,
-      data: months.map(month => monthlyCategoryExpenses[month][category] || 0),
+      data: months.map(month => this.monthlyCategoryExpenses[month][category] || 0),
       backgroundColor: this.generateColor(index),
     }));
 
     if (this.chartInstance) {
-      this.chartInstance.destroy();
-    }
-
-    const ctx = this.canvasRef.getContext('2d');
-    this.chartInstance = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: this.months,
-        datasets: datasets,
-      },
-      options: {
-        scales: {
-          x: { stacked: true },
-          y: { stacked: true },
+      this.chartInstance.data.labels = this.months; // Update chart labels
+      this.chartInstance.data.datasets = datasets; // Update chart datasets
+      this.chartInstance.update(); // Update the chart
+    } else {
+      const ctx = this.canvasRef.getContext('2d');
+      this.chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: this.months,
+          datasets: datasets,
         },
-      },
-    });
+        options: {
+          scales: {
+            x: { stacked: true },
+            y: { stacked: true },
+          },
+        },
+      });
+    }
   }
 
   private async handleYearChange(event: Event) {
-    console.log('inside handleYearChange');
     this.selectedYear = (event.target as HTMLSelectElement).value;
     this.startDate = `${this.selectedYear}-01-01`;
     this.endDate = `${this.selectedYear}-12-31`;
@@ -109,6 +103,7 @@ export class ExpenseChart {
     params.set('endDate', this.endDate);
     this.history.push(window.location.pathname + '?' + params.toString());
     await this.fetchExpenses();
+    this.calculateMonthlyCategoryExpenses(); // Update the data
     this.renderChart();
   }
 
@@ -118,6 +113,7 @@ export class ExpenseChart {
     this.endDate = params.get('endDate') || '2024-12-31';
     this.selectedYear = this.startDate ? this.startDate.split('-')[0] : '';
     await this.fetchExpenses();
+    this.calculateMonthlyCategoryExpenses();
   }
 
   componentDidLoad() {
