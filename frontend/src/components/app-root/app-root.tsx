@@ -19,6 +19,7 @@ export class AppRoot {
               <stencil-route url="/" component="app-home" exact={true} />
               <stencil-route url="/create" component="create-expense" />
               <stencil-route url="/details/:expenseId" component="expense-details-two" />
+              <stencil-route url="/edit/:expenseId" component="expense-edit" />
               <stencil-route url="/chart" component="expense-chart" />
             </stencil-route-switch>
           </stencil-router>

@@ -24,6 +24,10 @@ export namespace Components {
     interface ExpenseDetailsTwo {
         "match": MatchResults;
     }
+    interface ExpenseEdit {
+        "history": RouterHistory;
+        "match": MatchResults;
+    }
 }
 declare global {
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
@@ -62,6 +66,12 @@ declare global {
         prototype: HTMLExpenseDetailsTwoElement;
         new (): HTMLExpenseDetailsTwoElement;
     };
+    interface HTMLExpenseEditElement extends Components.ExpenseEdit, HTMLStencilElement {
+    }
+    var HTMLExpenseEditElement: {
+        prototype: HTMLExpenseEditElement;
+        new (): HTMLExpenseEditElement;
+    };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
@@ -69,6 +79,7 @@ declare global {
         "create-expense": HTMLCreateExpenseElement;
         "expense-chart": HTMLExpenseChartElement;
         "expense-details-two": HTMLExpenseDetailsTwoElement;
+        "expense-edit": HTMLExpenseEditElement;
     }
 }
 declare namespace LocalJSX {
@@ -89,6 +100,10 @@ declare namespace LocalJSX {
     interface ExpenseDetailsTwo {
         "match"?: MatchResults;
     }
+    interface ExpenseEdit {
+        "history"?: RouterHistory;
+        "match"?: MatchResults;
+    }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-profile": AppProfile;
@@ -96,6 +111,7 @@ declare namespace LocalJSX {
         "create-expense": CreateExpense;
         "expense-chart": ExpenseChart;
         "expense-details-two": ExpenseDetailsTwo;
+        "expense-edit": ExpenseEdit;
     }
 }
 export { LocalJSX as JSX };
@@ -108,6 +124,7 @@ declare module "@stencil/core" {
             "create-expense": LocalJSX.CreateExpense & JSXBase.HTMLAttributes<HTMLCreateExpenseElement>;
             "expense-chart": LocalJSX.ExpenseChart & JSXBase.HTMLAttributes<HTMLExpenseChartElement>;
             "expense-details-two": LocalJSX.ExpenseDetailsTwo & JSXBase.HTMLAttributes<HTMLExpenseDetailsTwoElement>;
+            "expense-edit": LocalJSX.ExpenseEdit & JSXBase.HTMLAttributes<HTMLExpenseEditElement>;
         }
     }
 }

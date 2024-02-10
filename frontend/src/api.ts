@@ -30,21 +30,23 @@ export class ExpenseApi {
     });
   }
 
-  public createExpense = async (description: string, amount: number) => {
+  public createExpense = async (description: string, amount: number, category: string) => {
+    console.log('in api')
     return await this.handleRequest(
       this.client.post(this.routes.CREATE_EXPENSE, {
         description,
         amount,
+        category
       })
     );
   };
 
-  public updateExpense = async (id: string, description: string, amount: number) => {
-    console.log("id->", id);
+  public updateExpense = async (id: string, description: string, amount: number, category: string) => {
     return await this.handleRequest(
-      this.client.put(this.routes.CREATE_EXPENSE, {
-        description: description,
+      this.client.put(this.routes.UPDATE_EXPENSE(id), {
+        description,
         amount,
+        category
       })
     );
   };

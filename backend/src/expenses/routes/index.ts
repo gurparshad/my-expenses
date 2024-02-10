@@ -83,15 +83,15 @@ expensesRouter.get('/:expenseId', async (req: Request, res: Response) => {
 
 expensesRouter.post('/', async (req: Request, res: Response) => {
   try {
-    const { description, amount } = req.body;
+    const { description, amount, category } = req.body;
     const jsonData = fs.readFileSync(jsonFilePath, 'utf8');
     const expenses = JSON.parse(jsonData);
 
-    const currentDate = new Date().toISOString().split('T')[0];
+    const currentDate = new Date().toISOString().replace('T', ' ').split('.')[0];
 
     const id = expenses.length > 0 ? Math.max(...expenses.map((e: any) => e.id)) + 1 : 1;
 
-    const newExpense = { id, description, date: currentDate, amount };
+    const newExpense = { id, description, date: currentDate, amount, category };
 
     expenses.push(newExpense);
 
@@ -104,13 +104,11 @@ expensesRouter.post('/', async (req: Request, res: Response) => {
   }
 });
 
+// TODO: maybe we cna use patch here.
 expensesRouter.put('/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
-    const { description, amount } = req.body;
-    console.log("description, amount", description, amount);
-
-    const currentDate = new Date().toISOString().split('T')[0];
+    const { description, amount, category } = req.body;
 
     const jsonData = fs.readFileSync(jsonFilePath, 'utf8');
     let expenses = JSON.parse(jsonData);
@@ -123,7 +121,8 @@ expensesRouter.put('/:id', async (req, res) => {
 
     expenses[index].description = description;
     expenses[index].amount = amount;
-    expenses[index].date = currentDate;
+    expenses[index].date = expenses[index].date;
+    expenses[index].category = category;
 
     fs.writeFileSync(jsonFilePath, JSON.stringify(expenses, null, 2), 'utf8');
 

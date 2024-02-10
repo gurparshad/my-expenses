@@ -140,8 +140,12 @@ export class AppHome {
     this.fetchExpenses();
   }
 
-  handleRowClick(expenseId: string) {
+  private handleRowClick(expenseId: string) {
     this.history.push(`/details/${expenseId}`);
+  }
+
+  private handleUpdateClick(expenseId: string) {
+    this.history.push(`/edit/${expenseId}`);
   }
 
   private async handleDeleteClick(expenseId: string) {
@@ -189,8 +193,9 @@ export class AppHome {
             <tr>
               <th>ID</th>
               <th>Description</th>
-              <th>Date</th>
               <th>Amount</th>
+              <th>Category</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tbody>
@@ -198,8 +203,9 @@ export class AppHome {
               <tr key={expense.id} onClick={() => this.handleRowClick(expense.id)}>
                 <td>{expense.id}</td>
                 <td>{expense.description}</td>
-                <td>{expense.date}</td>
                 <td>{expense.amount}</td>
+                <td>{expense.category}</td>
+                <td>{expense.date}</td>
                 <td>
                   <button
                     onClick={(event: Event) => {
@@ -208,6 +214,14 @@ export class AppHome {
                     }}
                   >
                     Delete
+                  </button>
+                  <button
+                    onClick={(event: Event) => {
+                      event.stopPropagation();
+                      this.handleUpdateClick(expense.id);
+                    }}
+                  >
+                    Update
                   </button>
                 </td>
               </tr>
