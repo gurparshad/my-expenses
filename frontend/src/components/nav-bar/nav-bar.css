@@ -1,0 +1,23 @@
+.navbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+}
+
+.navbar-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 30px;
+}
+
+.navbar-items li {
+  margin-bottom: 10px;
+}
+
+.mode-switcher {
+  margin-left: auto; /* Align to the right end */
+}

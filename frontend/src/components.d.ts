@@ -28,6 +28,10 @@ export namespace Components {
         "history": RouterHistory;
         "match": MatchResults;
     }
+    interface ModeSwitcher {
+    }
+    interface NavBar {
+    }
 }
 declare global {
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
@@ -72,6 +76,18 @@ declare global {
         prototype: HTMLExpenseEditElement;
         new (): HTMLExpenseEditElement;
     };
+    interface HTMLModeSwitcherElement extends Components.ModeSwitcher, HTMLStencilElement {
+    }
+    var HTMLModeSwitcherElement: {
+        prototype: HTMLModeSwitcherElement;
+        new (): HTMLModeSwitcherElement;
+    };
+    interface HTMLNavBarElement extends Components.NavBar, HTMLStencilElement {
+    }
+    var HTMLNavBarElement: {
+        prototype: HTMLNavBarElement;
+        new (): HTMLNavBarElement;
+    };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
@@ -80,6 +96,8 @@ declare global {
         "expense-chart": HTMLExpenseChartElement;
         "expense-details-two": HTMLExpenseDetailsTwoElement;
         "expense-edit": HTMLExpenseEditElement;
+        "mode-switcher": HTMLModeSwitcherElement;
+        "nav-bar": HTMLNavBarElement;
     }
 }
 declare namespace LocalJSX {
@@ -104,6 +122,10 @@ declare namespace LocalJSX {
         "history"?: RouterHistory;
         "match"?: MatchResults;
     }
+    interface ModeSwitcher {
+    }
+    interface NavBar {
+    }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-profile": AppProfile;
@@ -112,6 +134,8 @@ declare namespace LocalJSX {
         "expense-chart": ExpenseChart;
         "expense-details-two": ExpenseDetailsTwo;
         "expense-edit": ExpenseEdit;
+        "mode-switcher": ModeSwitcher;
+        "nav-bar": NavBar;
     }
 }
 export { LocalJSX as JSX };
@@ -125,6 +149,8 @@ declare module "@stencil/core" {
             "expense-chart": LocalJSX.ExpenseChart & JSXBase.HTMLAttributes<HTMLExpenseChartElement>;
             "expense-details-two": LocalJSX.ExpenseDetailsTwo & JSXBase.HTMLAttributes<HTMLExpenseDetailsTwoElement>;
             "expense-edit": LocalJSX.ExpenseEdit & JSXBase.HTMLAttributes<HTMLExpenseEditElement>;
+            "mode-switcher": LocalJSX.ModeSwitcher & JSXBase.HTMLAttributes<HTMLModeSwitcherElement>;
+            "nav-bar": LocalJSX.NavBar & JSXBase.HTMLAttributes<HTMLNavBarElement>;
         }
     }
 }

@@ -1,4 +1,5 @@
 import { Component, h } from '@stencil/core';
+import '../nav-bar/nav-bar';
 
 @Component({
   tag: 'app-root',
@@ -10,9 +11,8 @@ export class AppRoot {
     return (
       <div>
         <header>
-          <h1>Stencil App Starter pack</h1>
+          <nav-bar></nav-bar>
         </header>
-
         <main>
           <stencil-router>
             <stencil-route-switch scrollTopOffset={0}>
