@@ -14,9 +14,10 @@ export class ExpenseChart {
   @State() selectedYear: string = '';
   @State() startDate: string = '';
   @State() endDate: string = '';
+  @State() expenses: any;
   private canvasRef: HTMLCanvasElement;
   private expenseApi: ExpenseApi;
-  private expenses: any;
+  private chartInstance: Chart;
 
   private categories = [
     'food-and-dining',
@@ -34,6 +35,7 @@ export class ExpenseChart {
 
   private months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   private years = generateYears();
+
   private async fetchExpenses() {
     console.log('in fetch expenses');
     try {
@@ -66,18 +68,9 @@ export class ExpenseChart {
     return monthlyCategoryExpenses;
   }
 
-  private async handleYearChange(event: Event) {
-    console.log('inside handleYearChange');
-    this.selectedYear = (event.target as HTMLSelectElement).value;
-    this.startDate = `${this.selectedYear}-01-01`;
-    this.endDate = `${this.selectedYear}-12-31`;
-    const params = new URLSearchParams(window.location.search);
-    params.set('startDate', this.startDate);
-    params.set('endDate', this.endDate);
-    this.history.push(window.location.pathname + '?' + params.toString());
-    await this.fetchExpenses();
-  }
   private renderChart() {
+    console.log('inside render chart');
+    // TODO: maybe add the monthlyCategoryExpenses in state and trigger only the data change instead of whole chart rerendering.
     const monthlyCategoryExpenses = this.calculateMonthlyCategoryExpenses();
     const months = Object.keys(monthlyCategoryExpenses);
     const datasets = this.categories.map((category, index) => ({
@@ -86,8 +79,12 @@ export class ExpenseChart {
       backgroundColor: this.generateColor(index),
     }));
 
+    if (this.chartInstance) {
+      this.chartInstance.destroy();
+    }
+
     const ctx = this.canvasRef.getContext('2d');
-    new Chart(ctx, {
+    this.chartInstance = new Chart(ctx, {
       type: 'bar',
       data: {
         labels: this.months,
@@ -100,6 +97,19 @@ export class ExpenseChart {
         },
       },
     });
+  }
+
+  private async handleYearChange(event: Event) {
+    console.log('inside handleYearChange');
+    this.selectedYear = (event.target as HTMLSelectElement).value;
+    this.startDate = `${this.selectedYear}-01-01`;
+    this.endDate = `${this.selectedYear}-12-31`;
+    const params = new URLSearchParams(window.location.search);
+    params.set('startDate', this.startDate);
+    params.set('endDate', this.endDate);
+    this.history.push(window.location.pathname + '?' + params.toString());
+    await this.fetchExpenses();
+    this.renderChart();
   }
 
   async componentWillLoad() {
