@@ -80,7 +80,7 @@
     "id": 12,
     "description": "Lunch at a cafe",
     "date": "2023-03-12 00:00:00",
-    "amount": 25.50,
+    "amount": 25.5,
     "category": "food-and-dining"
   },
   {
@@ -94,126 +94,132 @@
     "id": 14,
     "description": "Rent payment",
     "date": "2023-03-01 00:00:00",
-    "amount": 1200.00,
+    "amount": 1200,
     "category": "housing"
   },
   {
     "id": 15,
     "description": "Electricity bill",
     "date": "2023-03-07 00:00:00",
-    "amount": 85.00,
+    "amount": 85,
     "category": "utilities"
   },
   {
     "id": 16,
     "description": "Movie tickets",
     "date": "2023-04-05 00:00:00",
-    "amount": 40.00,
+    "amount": 40,
     "category": "entertainment"
   },
   {
     "id": 17,
     "description": "Gym membership",
     "date": "2023-04-10 00:00:00",
-    "amount": 75.00,
+    "amount": 75,
     "category": "health-and-fitness"
   },
   {
     "id": 18,
     "description": "Clothing purchase",
     "date": "2023-04-18 00:00:00",
-    "amount": 120.00,
+    "amount": 120,
     "category": "shopping"
   },
   {
     "id": 19,
     "description": "Flight ticket",
     "date": "2023-05-02 00:00:00",
-    "amount": 300.00,
+    "amount": 300,
     "category": "travel"
   },
   {
     "id": 20,
     "description": "Textbook purchase",
     "date": "2023-05-10 00:00:00",
-    "amount": 75.00,
+    "amount": 75,
     "category": "education"
   },
   {
     "id": 21,
     "description": "Spa treatment",
     "date": "2023-05-15 00:00:00",
-    "amount": 150.00,
+    "amount": 150,
     "category": "personal-care"
   },
   {
     "id": 22,
     "description": "Dinner at a fancy restaurant",
     "date": "2023-06-03 00:00:00",
-    "amount": 100.00,
+    "amount": 100,
     "category": "food-and-dining"
   },
   {
     "id": 23,
     "description": "Gasoline refill",
     "date": "2023-06-07 00:00:00",
-    "amount": 45.00,
+    "amount": 45,
     "category": "transportation"
   },
   {
     "id": 24,
     "description": "Internet bill",
     "date": "2023-06-12 00:00:00",
-    "amount": 65.00,
+    "amount": 65,
     "category": "utilities"
   },
   {
     "id": 25,
     "description": "Concert tickets",
     "date": "2023-07-05 00:00:00",
-    "amount": 60.00,
+    "amount": 60,
     "category": "entertainment"
   },
   {
     "id": 26,
     "description": "Yoga class subscription",
     "date": "2023-07-10 00:00:00",
-    "amount": 50.00,
+    "amount": 50,
     "category": "health-and-fitness"
   },
   {
     "id": 27,
     "description": "Home appliance purchase",
     "date": "2023-07-15 00:00:00",
-    "amount": 500.00,
+    "amount": 500,
     "category": "shopping"
   },
   {
     "id": 28,
     "description": "Hotel accommodation",
     "date": "2023-08-02 00:00:00",
-    "amount": 150.00,
+    "amount": 150,
     "category": "travel"
   },
   {
     "id": 29,
     "description": "Language course enrollment",
     "date": "2023-08-10 00:00:00",
-    "amount": 200.00,
+    "amount": 200,
     "category": "education"
   },
   {
     "id": 30,
     "description": "Haircut",
     "date": "2023-08-18 00:00:00",
-    "amount": 30.00,
+    "amount": 30,
     "category": "personal-care"
   },
   {
     "id": 31,
     "description": "Brunch with friends",
     "date": "2023-09-05 00:00:00",
-    "amount": 40.00,
+    "amount": 40,
     "category": "food-and-dining"
+  },
+  {
+    "id": 32,
+    "description": "hlo",
+    "date": "2024-02-10",
+    "amount": 123
   }
 ]

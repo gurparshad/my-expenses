@@ -16,7 +16,7 @@ export class AppHome {
   @State() pageSize: number = 15;
   @State() selectedCategory: string = '';
   @State() selectedMonth: string = '';
-  @State() selectedYear: string = '2024';
+  @State() selectedYear: string = '';
   @State() startDate: string = '';
   @State() endDate: string = '';
 
@@ -61,10 +61,10 @@ export class AppHome {
     const params = new URLSearchParams(window.location.search);
     this.currentPage = parseInt(params.get('page') || '1');
     this.selectedCategory = params.get('category') || '';
-    this.startDate = params.get('startDate') || '';
-    this.endDate = params.get('endDate') || '';
-    this.selectedMonth = this.startDate ? this.startDate.split('-')[1] : '';
-    this.selectedYear = this.startDate ? this.startDate.split('-')[0] : '';
+    this.startDate = params.get('startDate') || '2024-01-01';
+    this.endDate = params.get('endDate') || '2024-12-31';
+    this.selectedMonth = params.get('startDate') ? this.startDate.split('-')[1] : '';
+    this.selectedYear = params.get('startDate') ? this.startDate.split('-')[0] : '2024';
     await this.fetchExpenses();
   }
 
