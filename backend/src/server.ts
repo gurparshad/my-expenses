@@ -21,7 +21,7 @@ app.use(cors(corsOptions));
 app.use('/expenses', expensesRouter);
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('express api');
 });
 
 app.listen(port, () => {

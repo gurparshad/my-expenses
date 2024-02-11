@@ -169,23 +169,52 @@
   },
   {
     "id": 31,
-    "description": "Brunch with friends",
+    "description": "dsa",
     "date": "2023-09-05 00:00:00",
-    "amount": 40,
-    "category": "food-and-dining"
+    "amount": 10,
+    "category": "utilities"
   },
   {
     "id": 34,
-    "description": "test bro",
-    "date": "2024-02-10 15:03:27",
-    "amount": 123,
-    "category": "housing"
+    "description": "testing testing",
+    "date": "2024-02-10 15:03:27"
   },
   {
     "id": 35,
     "description": "test 283",
     "date": "2024-02-11 13:19:20",
     "amount": 123,
+    "category": "food-and-dining"
+  },
+  {
+    "id": 36,
+    "description": "school fee 2.000",
+    "date": "2024-02-11 17:45:19"
+  },
+  {
+    "id": 37,
+    "description": "school fee",
+    "date": "2024-02-11 17:48:03"
+  },
+  {
+    "id": 38,
+    "description": "testig bro",
+    "date": "2024-02-11 18:43:16",
+    "amount": 18.75,
+    "category": "housing"
+  },
+  {
+    "id": 39,
+    "description": "testig bro",
+    "date": "2024-02-11 18:51:27",
+    "amount": 18.75,
+    "category": "food-and-dining"
+  },
+  {
+    "id": 40,
+    "description": "testig bro 2",
+    "date": "2024-02-11 19:03:57",
+    "amount": 1,
     "category": "food-and-dining"
   }
 ]
