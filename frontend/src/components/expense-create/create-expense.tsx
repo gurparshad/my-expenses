@@ -2,6 +2,7 @@ import { Component, Prop, State, h } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
 import { ExpenseCategory } from '../../utils/constants';
+import '../custom-button/custom-button';
 
 @Component({
   tag: 'create-expense',
@@ -80,8 +81,9 @@ export class CreateExpense {
           </select>
           <div class="error-message">{this.categoryError}</div>
         </div>
-
-        <button onClick={() => this.createExpense()}>Create</button>
+        <custom-button color="secondary" onClick={() => this.createExpense()}>
+          Create
+        </custom-button>
       </div>
     );
   }

@@ -1,21 +1,31 @@
 :root {
+  /* light mode */
   --background-color-light: #ffffff;
   --text-color-light: #000000;
   --table-even-row-background-light: #f0ecec;
-  --table-odd-row-background-light: #rgb(225, 219, 219);
+  --table-heading-background-light: #f2f2f2;
+  --table-row-hover-light: #e0e0e0;
 
+  /* dark mode */
   --background-color-dark: #121212;
   --text-color-dark: #ffffff;
   --table-even-row-background-dark: #525050;
-  --table-odd-row-background-dark: #363333;
+  --table-heading-background-dark: #473f3f;
+  --table-row-hover-dark: #2b2626;
+}
+
+[data-theme='light'] {
+  --table-even-row-background: var(--table-even-row-background-light);
+  --table-heading-background:  var(--table-heading-background-light);
+  --table-row-hover: var(--table-row-hover-light);
 }
 
 [data-theme='dark'] {
+  --table-heading-background: var(--table-heading-background-dark);
   --background-color: var(--background-color-dark);
   --text-color: var(--text-color-dark);
-  --primary-color-bro: red;
   --table-even-row-background: var(--table-even-row-background-dark);
-  --table-odd-row-background: var(--table-odd-row-background-dark);
+  --table-row-hover: var(--table-row-hover-dark);
 }
 
 body {

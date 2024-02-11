@@ -18,6 +18,10 @@ export namespace Components {
     interface CreateExpense {
         "history": RouterHistory;
     }
+    interface CustomButton {
+        "color": 'danger' | 'success' | 'secondary';
+        "disabled": boolean;
+    }
     interface ExpenseChart {
         "history": RouterHistory;
     }
@@ -31,6 +35,7 @@ export namespace Components {
     interface ModeSwitcher {
     }
     interface NavBar {
+        "items": { label: string; url: string }[];
     }
 }
 declare global {
@@ -57,6 +62,12 @@ declare global {
     var HTMLCreateExpenseElement: {
         prototype: HTMLCreateExpenseElement;
         new (): HTMLCreateExpenseElement;
+    };
+    interface HTMLCustomButtonElement extends Components.CustomButton, HTMLStencilElement {
+    }
+    var HTMLCustomButtonElement: {
+        prototype: HTMLCustomButtonElement;
+        new (): HTMLCustomButtonElement;
     };
     interface HTMLExpenseChartElement extends Components.ExpenseChart, HTMLStencilElement {
     }
@@ -93,6 +104,7 @@ declare global {
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
         "create-expense": HTMLCreateExpenseElement;
+        "custom-button": HTMLCustomButtonElement;
         "expense-chart": HTMLExpenseChartElement;
         "expense-details-two": HTMLExpenseDetailsTwoElement;
         "expense-edit": HTMLExpenseEditElement;
@@ -112,6 +124,11 @@ declare namespace LocalJSX {
     interface CreateExpense {
         "history"?: RouterHistory;
     }
+    interface CustomButton {
+        "color"?: 'danger' | 'success' | 'secondary';
+        "disabled"?: boolean;
+        "onButtonClick"?: (event: CustomEvent<void>) => void;
+    }
     interface ExpenseChart {
         "history"?: RouterHistory;
     }
@@ -125,12 +142,14 @@ declare namespace LocalJSX {
     interface ModeSwitcher {
     }
     interface NavBar {
+        "items"?: { label: string; url: string }[];
     }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
         "create-expense": CreateExpense;
+        "custom-button": CustomButton;
         "expense-chart": ExpenseChart;
         "expense-details-two": ExpenseDetailsTwo;
         "expense-edit": ExpenseEdit;
@@ -146,6 +165,7 @@ declare module "@stencil/core" {
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "create-expense": LocalJSX.CreateExpense & JSXBase.HTMLAttributes<HTMLCreateExpenseElement>;
+            "custom-button": LocalJSX.CustomButton & JSXBase.HTMLAttributes<HTMLCustomButtonElement>;
             "expense-chart": LocalJSX.ExpenseChart & JSXBase.HTMLAttributes<HTMLExpenseChartElement>;
             "expense-details-two": LocalJSX.ExpenseDetailsTwo & JSXBase.HTMLAttributes<HTMLExpenseDetailsTwoElement>;
             "expense-edit": LocalJSX.ExpenseEdit & JSXBase.HTMLAttributes<HTMLExpenseEditElement>;

@@ -195,53 +195,54 @@ export class AppHome {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Description</th>
               <th>Amount</th>
               <th>Category</th>
               <th>Date</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {this.expenses.map(expense => (
               <tr key={expense.id} onClick={() => this.handleRowClick(expense.id)}>
-                <td>{expense.id}</td>
                 <td>{expense.description}</td>
                 <td>{expense.amount}</td>
                 <td>{expense.category}</td>
                 <td>{expense.date}</td>
-                <td>
-                  <button
-                    onClick={(event: Event) => {
-                      event.stopPropagation();
-                      this.handleDeleteClick(expense.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                  <button
+                <td class="buttons-container">
+                  <custom-button
+                    color="secondary"
                     onClick={(event: Event) => {
                       event.stopPropagation();
                       this.handleUpdateClick(expense.id);
                     }}
                   >
                     Update
-                  </button>
+                  </custom-button>
+                  <custom-button
+                    color="danger"
+                    onClick={(event: Event) => {
+                      event.stopPropagation();
+                      this.handleDeleteClick(expense.id);
+                    }}
+                  >
+                    Delete
+                  </custom-button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
         <div class="pagination">
-          <button onClick={() => this.prevPage()} disabled={this.currentPage === 1}>
+          <custom-button color="secondary" onClick={() => this.prevPage()} disabled={this.currentPage === 1}>
             Previous
-          </button>
+          </custom-button>
           <span>
             Page {this.currentPage} of {this.totalPages}
           </span>
-          <button onClick={() => this.nextPage()} disabled={this.currentPage === this.totalPages}>
+          <custom-button color="secondary" onClick={() => this.nextPage()} disabled={this.currentPage === this.totalPages}>
             Next
-          </button>
+          </custom-button>
         </div>
       </div>
     );

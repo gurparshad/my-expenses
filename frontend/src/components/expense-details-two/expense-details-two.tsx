@@ -26,7 +26,7 @@ export class ExpenseDetails {
   render() {
     return (
       <div class="expense-details">
-        <div class="title">Expense Details</div>
+        <h2>Expense Details</h2>
         <div class="details">
           <div class="field">
             <span class="label">Description:</span>
@@ -35,6 +35,10 @@ export class ExpenseDetails {
           <div class="field">
             <span class="label">Amount:</span>
             <span class="value">{this.expenseDetails.amount}</span>
+          </div>
+          <div class="field">
+            <span class="label">Category:</span>
+            <span class="value">{this.expenseDetails.category}</span>
           </div>
           <div class="field">
             <span class="label">Date:</span>

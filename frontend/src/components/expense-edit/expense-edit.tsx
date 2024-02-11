@@ -82,8 +82,9 @@ export class ExpenseDetails {
           </select>
           <div class="error-message">{this.categoryError}</div>
         </div>
-
-        <button onClick={() => this.handleUpdate()}>Update</button>
+        <custom-button color="secondary" onClick={() => this.handleUpdate()}>
+          Update
+        </custom-button>
       </div>
     );
   }

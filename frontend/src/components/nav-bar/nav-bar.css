@@ -14,10 +14,11 @@
   gap: 30px;
 }
 
-.navbar-items li {
-  margin-bottom: 10px;
+a {
+  color: white;
+  text-decoration: none;
 }
 
 .mode-switcher {
-  margin-left: auto; /* Align to the right end */
+  margin-left: auto;
 }

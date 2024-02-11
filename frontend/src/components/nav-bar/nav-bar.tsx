@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, Prop, h } from '@stencil/core';
 import '../mode-switcher/mode-switcher';
 
 @Component({
@@ -7,13 +7,19 @@ import '../mode-switcher/mode-switcher';
   shadow: true,
 })
 export class Navbar {
+  @Prop() items: { label: string; url: string }[] = [];
+
   render() {
     return (
       <div class="navbar">
         <ul class="navbar-items">
-          <li>item 1</li>
-          <li>item 2</li>
-          <li>item 3</li>
+          {this.items.map(item => (
+            <li>
+              <stencil-route-link class="nav-link" url={item.url}>
+                {item.label}
+              </stencil-route-link>
+            </li>
+          ))}
         </ul>
         <mode-switcher></mode-switcher>
       </div>

@@ -8,10 +8,15 @@ import '../nav-bar/nav-bar';
 })
 export class AppRoot {
   render() {
+    const navbarItems = [
+      { label: 'Home', url: '/' },
+      { label: 'Create Expense', url: '/create' },
+      { label: 'Chart', url: '/chart' },
+    ];
     return (
       <div>
         <header>
-          <nav-bar></nav-bar>
+          <nav-bar items={navbarItems}></nav-bar>
         </header>
         <main>
           <stencil-router>
