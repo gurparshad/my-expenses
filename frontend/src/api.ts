@@ -41,9 +41,9 @@ export class ExpenseApi {
     );
   };
 
-  public updateExpense = async (id: string, description: string, amount: number, category: string) => {
+  public updateExpense = async (id: number, description: string, amount: number, category: string) => {
     return await this.handleRequest(
-      this.client.put(this.routes.UPDATE_EXPENSE(id), {
+      this.client.patch(this.routes.UPDATE_EXPENSE(id.toString()), {
         description,
         amount,
         category
@@ -59,8 +59,6 @@ export class ExpenseApi {
 
   // TODO: check if we have to add optional arguments or not.
   public getExpenses = async (pageNumber?: number, pageSize?: number, category?: string, startDate?: string, endDate?: string) => {
-    console.log('startDate-->', startDate);
-    console.log("endDate-->>", endDate);
     return await this.handleRequest(
       this.client.get(this.routes.GET_EXPENSES, {
         params: {
@@ -80,10 +78,9 @@ export class ExpenseApi {
     );
   };
 
-  // TODO: update the delete method
-  public deleteExpense = async (expense_id: string) => {
+  public deleteExpense = async (expense_id: number) => {
     return await this.handleRequest(
-      this.client.delete(this.routes.DELETE_EXPENSE(expense_id))
+      this.client.delete(this.routes.DELETE_EXPENSE(expense_id.toString()))
     );
   };
 

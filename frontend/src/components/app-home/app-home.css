@@ -54,3 +54,9 @@ select {
   box-sizing: border-box;
   font-size: 14px;
 }
+
+.expenses-not-found{
+  text-align: center;
+  margin-top: 50px;
+  color: grey;
+}

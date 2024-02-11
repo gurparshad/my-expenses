@@ -25,7 +25,7 @@ export namespace Components {
     interface ExpenseChart {
         "history": RouterHistory;
     }
-    interface ExpenseDetailsTwo {
+    interface ExpenseDetails {
         "match": MatchResults;
     }
     interface ExpenseEdit {
@@ -75,11 +75,11 @@ declare global {
         prototype: HTMLExpenseChartElement;
         new (): HTMLExpenseChartElement;
     };
-    interface HTMLExpenseDetailsTwoElement extends Components.ExpenseDetailsTwo, HTMLStencilElement {
+    interface HTMLExpenseDetailsElement extends Components.ExpenseDetails, HTMLStencilElement {
     }
-    var HTMLExpenseDetailsTwoElement: {
-        prototype: HTMLExpenseDetailsTwoElement;
-        new (): HTMLExpenseDetailsTwoElement;
+    var HTMLExpenseDetailsElement: {
+        prototype: HTMLExpenseDetailsElement;
+        new (): HTMLExpenseDetailsElement;
     };
     interface HTMLExpenseEditElement extends Components.ExpenseEdit, HTMLStencilElement {
     }
@@ -106,7 +106,7 @@ declare global {
         "create-expense": HTMLCreateExpenseElement;
         "custom-button": HTMLCustomButtonElement;
         "expense-chart": HTMLExpenseChartElement;
-        "expense-details-two": HTMLExpenseDetailsTwoElement;
+        "expense-details": HTMLExpenseDetailsElement;
         "expense-edit": HTMLExpenseEditElement;
         "mode-switcher": HTMLModeSwitcherElement;
         "nav-bar": HTMLNavBarElement;
@@ -132,7 +132,7 @@ declare namespace LocalJSX {
     interface ExpenseChart {
         "history"?: RouterHistory;
     }
-    interface ExpenseDetailsTwo {
+    interface ExpenseDetails {
         "match"?: MatchResults;
     }
     interface ExpenseEdit {
@@ -151,7 +151,7 @@ declare namespace LocalJSX {
         "create-expense": CreateExpense;
         "custom-button": CustomButton;
         "expense-chart": ExpenseChart;
-        "expense-details-two": ExpenseDetailsTwo;
+        "expense-details": ExpenseDetails;
         "expense-edit": ExpenseEdit;
         "mode-switcher": ModeSwitcher;
         "nav-bar": NavBar;
@@ -167,7 +167,7 @@ declare module "@stencil/core" {
             "create-expense": LocalJSX.CreateExpense & JSXBase.HTMLAttributes<HTMLCreateExpenseElement>;
             "custom-button": LocalJSX.CustomButton & JSXBase.HTMLAttributes<HTMLCustomButtonElement>;
             "expense-chart": LocalJSX.ExpenseChart & JSXBase.HTMLAttributes<HTMLExpenseChartElement>;
-            "expense-details-two": LocalJSX.ExpenseDetailsTwo & JSXBase.HTMLAttributes<HTMLExpenseDetailsTwoElement>;
+            "expense-details": LocalJSX.ExpenseDetails & JSXBase.HTMLAttributes<HTMLExpenseDetailsElement>;
             "expense-edit": LocalJSX.ExpenseEdit & JSXBase.HTMLAttributes<HTMLExpenseEditElement>;
             "mode-switcher": LocalJSX.ModeSwitcher & JSXBase.HTMLAttributes<HTMLModeSwitcherElement>;
             "nav-bar": LocalJSX.NavBar & JSXBase.HTMLAttributes<HTMLNavBarElement>;

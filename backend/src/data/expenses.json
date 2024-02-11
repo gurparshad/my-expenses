@@ -1,9 +1,9 @@
 [
   {
     "id": 2,
-    "description": "something 12345678000000",
+    "description": "asdfrer",
     "date": "2024-01-08 00:00:00",
-    "amount": 1300,
+    "amount": 130,
     "category": "shopping"
   },
   {
@@ -216,5 +216,61 @@
     "date": "2024-02-11 19:03:57",
     "amount": 1,
     "category": "food-and-dining"
+  },
+  {
+    "id": 41,
+    "description": "test 8709",
+    "date": "2024-02-11 20:53:32",
+    "amount": "21312",
+    "category": "food-and-dining"
+  },
+  {
+    "id": 42,
+    "description": "sidhu ",
+    "date": "2024-02-11 21:01:04",
+    "amount": "123456",
+    "category": "utilities"
+  },
+  {
+    "id": 43,
+    "description": "number test",
+    "date": "2024-02-11 21:01:55",
+    "amount": "088776",
+    "category": "transportation"
+  },
+  {
+    "id": 44,
+    "description": "point",
+    "date": "2024-02-11 21:02:40",
+    "amount": "5.5",
+    "category": "transportation"
+  },
+  {
+    "id": 45,
+    "description": "000000 testing.",
+    "date": "2024-02-11 21:06:20",
+    "amount": "0000010101",
+    "category": "food-and-dining"
+  },
+  {
+    "id": 46,
+    "description": "final test",
+    "date": "2024-02-11 21:08:06",
+    "amount": 7,
+    "category": "transportation"
+  },
+  {
+    "id": 47,
+    "description": "asdf",
+    "date": "2024-02-11 21:08:44",
+    "amount": 7.98,
+    "category": "transportation"
+  },
+  {
+    "id": 48,
+    "description": "asddada",
+    "date": "2024-02-11 21:11:12",
+    "amount": 900,
+    "category": "housing"
   }
 ]

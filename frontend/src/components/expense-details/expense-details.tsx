@@ -1,17 +1,24 @@
 import { MatchResults } from '@stencil-community/router';
 import { Component, Prop, h } from '@stencil/core';
 import { ExpenseApi } from '../../api';
+import { Expense } from '../../types';
 
 @Component({
-  tag: 'expense-details-two',
-  styleUrl: 'expense-details-two.css',
+  tag: 'expense-details',
+  styleUrl: 'expense-details.css',
   shadow: true,
 })
 export class ExpenseDetails {
   @Prop() match: MatchResults;
 
   private expenseApi: ExpenseApi;
-  private expenseDetails: any = {};
+  private expenseDetails: Expense = {
+    id: 0,
+    description: '',
+    date: '',
+    amount: 0,
+    category: '',
+  };
 
   async componentWillLoad() {
     const expenseId = this.match.params.expenseId;

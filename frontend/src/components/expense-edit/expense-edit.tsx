@@ -2,6 +2,7 @@ import { MatchResults, RouterHistory } from '@stencil-community/router';
 import { Component, Prop, State, h } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { ExpenseCategory } from '../../utils/constants';
+import { Expense } from '../../types';
 
 @Component({
   tag: 'expense-edit',
@@ -11,7 +12,7 @@ import { ExpenseCategory } from '../../utils/constants';
 export class ExpenseDetails {
   @Prop() history: RouterHistory;
   @Prop() match: MatchResults;
-  @State() expenseDetails: any = {};
+  @State() expenseDetails: Expense;
   @State() descriptionError: string = '';
   @State() amountError: string = '';
   @State() categoryError: string = '';
@@ -56,23 +57,37 @@ export class ExpenseDetails {
     }
   }
 
+  private handleInputChange(event: Event, property: string) {
+    let value = (event.target as HTMLInputElement).value;
+    if (property === 'amount') {
+      this.expenseDetails.amount = Number(value);
+    } else {
+      value = value.trim();
+      this.expenseDetails.description = value;
+    }
+  }
+
+  private handleCategoryChange(event: Event) {
+    this.expenseDetails.category = (event.target as HTMLSelectElement).value;
+  }
+
   render() {
     return (
       <div class="edit-expense">
         <h2>Edit Expense</h2>
         <div class="input-group">
           <label>Description:</label>
-          <input type="text" value={this.expenseDetails.description} onInput={(event: any) => (this.expenseDetails.description = event.target.value)} />
+          <input type="text" value={this.expenseDetails.description} onInput={(event: Event) => this.handleInputChange(event, 'description')} />
           <div class="error-message">{this.descriptionError}</div>
         </div>
         <div class="input-group">
           <label>Amount:</label>
-          <input type="number" value={this.expenseDetails.amount} onInput={(event: any) => (this.expenseDetails.amount = parseFloat(event.target.value))} />
+          <input type="number" value={this.expenseDetails.amount} onInput={(event: Event) => this.handleInputChange(event, 'amount')} />
           <div class="error-message">{this.amountError}</div>
         </div>
         <div class="input-group">
           <label>Category:</label>
-          <select class="category-select" id="expense-category-select" onChange={(event: any) => (this.expenseDetails.category = event.target.value)}>
+          <select class="category-select" id="expense-category-select" onChange={(event: Event) => this.handleCategoryChange(event)}>
             <option value="">Select category</option>
             {Object.values(ExpenseCategory).map(category => (
               <option value={category} selected={this.expenseDetails.category === category}>

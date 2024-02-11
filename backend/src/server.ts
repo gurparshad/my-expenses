@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 const corsOptions = {
   origin: process.env.CLIENT_APP_URL,
-  methods: ['GET', 'POST', 'DELETE', 'PUT'],
+  methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
   credentials: true,
 };
 

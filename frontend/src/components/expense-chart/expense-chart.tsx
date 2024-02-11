@@ -3,6 +3,7 @@ import Chart from 'chart.js/auto';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
 import { generateYears } from '../../utils/generateYears';
+import { ExpensesData } from '../../types';
 
 @Component({
   tag: 'expense-chart',
@@ -14,7 +15,10 @@ export class ExpenseChart {
   @State() selectedYear: string = '';
   @State() startDate: string = '';
   @State() endDate: string = '';
-  @State() expenses: any;
+  @State() expenses: ExpensesData = {
+    totalExpenses: 0,
+    expenses: [],
+  };
   private canvasRef: HTMLCanvasElement;
   private expenseApi: ExpenseApi;
   private chartInstance: Chart;
@@ -41,6 +45,7 @@ export class ExpenseChart {
     try {
       this.expenseApi = new ExpenseApi();
       this.expenses = await this.expenseApi.getExpenses(undefined, undefined, undefined, this.startDate, this.endDate);
+      console.log('this.expenses-->>', this.expenses);
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
@@ -73,9 +78,9 @@ export class ExpenseChart {
     }));
 
     if (this.chartInstance) {
-      this.chartInstance.data.labels = this.months; // Update chart labels
-      this.chartInstance.data.datasets = datasets; // Update chart datasets
-      this.chartInstance.update(); // Update the chart
+      this.chartInstance.data.labels = this.months;
+      this.chartInstance.data.datasets = datasets;
+      this.chartInstance.update();
     } else {
       const ctx = this.canvasRef.getContext('2d');
       this.chartInstance = new Chart(ctx, {

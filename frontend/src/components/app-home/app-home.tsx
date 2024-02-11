@@ -2,6 +2,8 @@ import { Component, Prop, State, h } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
 import { generateYears } from '../../utils/generateYears';
+import { Expense } from '../../types';
+import { Categories, Months } from '../../utils/constants';
 
 @Component({
   tag: 'app-home',
@@ -10,7 +12,7 @@ import { generateYears } from '../../utils/generateYears';
 })
 export class AppHome {
   @Prop() history: RouterHistory;
-  @State() expenses: any[] = [];
+  @State() expenses: Expense[] = [];
   @State() currentPage: number = 1;
   @State() totalPages: number = 1;
   @State() pageSize: number = 15;
@@ -19,35 +21,6 @@ export class AppHome {
   @State() selectedYear: string = '';
   @State() startDate: string = '';
   @State() endDate: string = '';
-
-  private categories = [
-    'food-and-dining',
-    'transportation',
-    'housing',
-    'utilities',
-    'entertainment',
-    'health-and-fitness',
-    'shopping',
-    'travel',
-    'education',
-    'personal-care',
-    'others',
-  ];
-
-  private months = [
-    { value: '01', label: 'January' },
-    { value: '02', label: 'February' },
-    { value: '03', label: 'March' },
-    { value: '04', label: 'April' },
-    { value: '05', label: 'May' },
-    { value: '06', label: 'June' },
-    { value: '07', label: 'July' },
-    { value: '08', label: 'August' },
-    { value: '09', label: 'September' },
-    { value: '10', label: 'October' },
-    { value: '11', label: 'November' },
-    { value: '12', label: 'December' },
-  ];
 
   private years = generateYears();
 
@@ -132,23 +105,23 @@ export class AppHome {
     }
   }
 
-  private async handleCategorySelect(event: any) {
-    this.selectedCategory = event.target.value;
+  private async handleCategorySelect(event: Event) {
+    this.selectedCategory = (event.target as HTMLSelectElement).value;
     const params = new URLSearchParams(window.location.search);
     params.set('category', this.selectedCategory);
     this.history.push(window.location.pathname + '?' + params.toString());
     this.fetchExpenses();
   }
 
-  private handleRowClick(expenseId: string) {
+  private handleRowClick(expenseId: number) {
     this.history.push(`/details/${expenseId}`);
   }
 
-  private handleUpdateClick(expenseId: string) {
+  private handleUpdateClick(expenseId: number) {
     this.history.push(`/edit/${expenseId}`);
   }
 
-  private async handleDeleteClick(expenseId: string) {
+  private async handleDeleteClick(expenseId: number) {
     try {
       await this.expenseApi.deleteExpense(expenseId);
       await this.fetchExpenses();
@@ -158,25 +131,22 @@ export class AppHome {
   }
 
   render() {
-    const themeAttribute = document.documentElement.getAttribute('data-theme');
-
-    // Log the value of the data-theme attribute
-    console.log('data-theme attribute:', themeAttribute);
     return (
       <div class="app-home">
         <div class="filter">
           <label htmlFor="category-select">Category:</label>
           <select id="category-select" onChange={event => this.handleCategorySelect(event)}>
             <option value="">All</option>
-            {/* need a key in the map */}
-            {this.categories.map(category => (
-              <option value={category}>{category}</option>
+            {Categories.map(category => (
+              <option key={category} value={category}>
+                {category}
+              </option>
             ))}
           </select>
           <label htmlFor="month-select">Month:</label>
           <select id="month-select" onChange={event => this.handleMonthChange(event)}>
             <option value="">All</option>
-            {this.months.map(month => (
+            {Months.map(month => (
               <option value={month.value} selected={this.selectedMonth === month.value}>
                 {month.label}
               </option>
@@ -191,58 +161,66 @@ export class AppHome {
             ))}
           </select>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Amount</th>
-              <th>Category</th>
-              <th>Date</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.expenses.map(expense => (
-              <tr key={expense.id} onClick={() => this.handleRowClick(expense.id)}>
-                <td>{expense.description}</td>
-                <td>{expense.amount}</td>
-                <td>{expense.category}</td>
-                <td>{expense.date}</td>
-                <td class="buttons-container">
-                  <custom-button
-                    color="secondary"
-                    onClick={(event: Event) => {
-                      event.stopPropagation();
-                      this.handleUpdateClick(expense.id);
-                    }}
-                  >
-                    Update
-                  </custom-button>
-                  <custom-button
-                    color="danger"
-                    onClick={(event: Event) => {
-                      event.stopPropagation();
-                      this.handleDeleteClick(expense.id);
-                    }}
-                  >
-                    Delete
-                  </custom-button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div class="pagination">
-          <custom-button color="secondary" onClick={() => this.prevPage()} disabled={this.currentPage === 1}>
-            Previous
-          </custom-button>
-          <span>
-            Page {this.currentPage} of {this.totalPages}
-          </span>
-          <custom-button color="secondary" onClick={() => this.nextPage()} disabled={this.currentPage === this.totalPages}>
-            Next
-          </custom-button>
-        </div>
+        {this.expenses.length === 0 ? (
+          <p class="expenses-not-found">No Expenses found. Try changing the time period or category!!</p>
+        ) : (
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.expenses.map(expense => (
+                  <tr key={expense.id} onClick={() => this.handleRowClick(expense.id)}>
+                    <td>{expense.description}</td>
+                    <td>{expense.amount}</td>
+                    <td>{expense.category}</td>
+                    <td>{expense.date}</td>
+                    <td class="buttons-container">
+                      <custom-button
+                        color="secondary"
+                        onClick={(event: Event) => {
+                          event.stopPropagation();
+                          this.handleUpdateClick(expense.id);
+                        }}
+                      >
+                        EDIT
+                      </custom-button>
+                      <custom-button
+                        color="danger"
+                        onClick={(event: Event) => {
+                          event.stopPropagation();
+                          this.handleDeleteClick(expense.id);
+                        }}
+                      >
+                        Delete
+                      </custom-button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {this.totalPages > 1 && (
+              <div class="pagination">
+                <custom-button color="secondary" onClick={() => this.prevPage()} disabled={this.currentPage === 1}>
+                  Previous
+                </custom-button>
+                <span>
+                  Page {this.currentPage} of {this.totalPages}
+                </span>
+                <custom-button color="secondary" onClick={() => this.nextPage()} disabled={this.currentPage === this.totalPages}>
+                  Next
+                </custom-button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   }
