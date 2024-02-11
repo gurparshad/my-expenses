@@ -151,7 +151,6 @@ export class AppHome {
   private async handleDeleteClick(expenseId: string) {
     try {
       await this.expenseApi.deleteExpense(expenseId);
-      // Fetch expenses again after deletion
       await this.fetchExpenses();
     } catch (error) {
       console.error('Error deleting expense:', error);
@@ -166,7 +165,7 @@ export class AppHome {
     return (
       <div class="app-home">
         <div class="filter">
-          <label htmlFor="category-select">Select Category:</label>
+          <label htmlFor="category-select">Category:</label>
           <select id="category-select" onChange={event => this.handleCategorySelect(event)}>
             <option value="">All</option>
             {/* need a key in the map */}
@@ -174,7 +173,7 @@ export class AppHome {
               <option value={category}>{category}</option>
             ))}
           </select>
-          <label htmlFor="month-select">Select Month:</label>
+          <label htmlFor="month-select">Month:</label>
           <select id="month-select" onChange={event => this.handleMonthChange(event)}>
             <option value="">All</option>
             {this.months.map(month => (
@@ -183,7 +182,7 @@ export class AppHome {
               </option>
             ))}
           </select>
-          <label htmlFor="year-select">Select Year:</label>
+          <label htmlFor="year-select">Year:</label>
           <select id="year-select" onChange={event => this.handleYearChange(event)}>
             {this.years.map(year => (
               <option value={year} selected={Number(this.selectedYear) === year}>

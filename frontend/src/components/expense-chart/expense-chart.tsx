@@ -130,7 +130,7 @@ export class ExpenseChart {
       <div>
         <h1>Chart</h1>
         <div>
-          <label htmlFor="year-select">Select Year:</label>
+          <label htmlFor="year-select">Year:</label>
           <select id="year-select" onChange={event => this.handleYearChange(event)}>
             {this.years.map(year => (
               <option value={year} selected={Number(this.selectedYear) === year}>

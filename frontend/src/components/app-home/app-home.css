@@ -39,3 +39,18 @@ td {
   align-items: center;
   justify-content: center;
 }
+
+.filter{
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+select {
+  width: 400px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
