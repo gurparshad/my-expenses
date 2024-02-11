@@ -159,6 +159,10 @@ export class AppHome {
   }
 
   render() {
+    const themeAttribute = document.documentElement.getAttribute('data-theme');
+
+    // Log the value of the data-theme attribute
+    console.log('data-theme attribute:', themeAttribute);
     return (
       <div class="app-home">
         <div class="filter">
