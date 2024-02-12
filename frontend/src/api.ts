@@ -80,7 +80,7 @@ export class ExpenseApi {
     );
   };
 
-  public deleteExpense = async (expense_id: number) => {
+  public deleteExpense = async (expense_id: string) => {
     return await this.handleRequest(
       this.client.delete(this.routes.DELETE_EXPENSE(expense_id.toString()))
     );

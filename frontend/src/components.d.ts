@@ -27,6 +27,7 @@ export namespace Components {
         "history": RouterHistory;
     }
     interface ExpenseDetails {
+        "history": RouterHistory;
         "match": MatchResults;
     }
     interface ExpenseEdit {
@@ -135,6 +136,7 @@ declare namespace LocalJSX {
         "history"?: RouterHistory;
     }
     interface ExpenseDetails {
+        "history"?: RouterHistory;
         "match"?: MatchResults;
     }
     interface ExpenseEdit {

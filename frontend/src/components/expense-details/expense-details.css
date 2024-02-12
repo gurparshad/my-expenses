@@ -17,6 +17,8 @@
   margin-right: 10px;
 }
 
-.value {
-  color: #333;
+.buttons-container{
+  margin-top: 40px;
+  display: flex;
+  gap: 30px;
 }

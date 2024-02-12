@@ -123,7 +123,7 @@ export class AppHome {
 
   private async handleDeleteClick(expenseId: number) {
     try {
-      await this.expenseApi.deleteExpense(expenseId);
+      await this.expenseApi.deleteExpense(expenseId.toString());
       await this.fetchExpenses();
       setTimeout(() => {
         window.alert('Expense Deleted successfully!');

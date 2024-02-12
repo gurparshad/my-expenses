@@ -1,4 +1,4 @@
-import { MatchResults } from '@stencil-community/router';
+import { MatchResults, RouterHistory } from '@stencil-community/router';
 import { Component, Prop, h } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { Expense } from '../../types';
@@ -10,7 +10,9 @@ import { Expense } from '../../types';
 })
 export class ExpenseDetails {
   @Prop() match: MatchResults;
+  @Prop() history: RouterHistory;
 
+  private expenseId: string;
   private expenseApi: ExpenseApi;
   private expenseDetails: Expense = {
     id: 0,
@@ -20,11 +22,27 @@ export class ExpenseDetails {
     category: '',
   };
 
+  private handleUpdateClick(expenseId: string) {
+    this.history.push(`/edit/${expenseId}`);
+  }
+
+  private async handleDeleteClick(expenseId: string) {
+    try {
+      await this.expenseApi.deleteExpense(expenseId);
+      setTimeout(() => {
+        window.alert('Expense Deleted successfully!');
+      }, 100);
+      this.history.push('/');
+    } catch (error) {
+      console.error('Error deleting expense:', error);
+    }
+  }
+
   async componentWillLoad() {
-    const expenseId = this.match.params.expenseId;
+    this.expenseId = this.match.params.expenseId;
     this.expenseApi = new ExpenseApi();
     try {
-      this.expenseDetails = await this.expenseApi.getExpense(expenseId);
+      this.expenseDetails = await this.expenseApi.getExpense(this.expenseId);
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
@@ -37,21 +55,41 @@ export class ExpenseDetails {
         <div class="details">
           <div class="field">
             <span class="label">Description:</span>
-            <span class="value">{this.expenseDetails.description}</span>
+            <span>{this.expenseDetails.description}</span>
           </div>
           <div class="field">
             <span class="label">Amount:</span>
-            <span class="value">{this.expenseDetails.amount}</span>
+            <span>{this.expenseDetails.amount}</span>
           </div>
           <div class="field">
             <span class="label">Category:</span>
-            <span class="value">{this.expenseDetails.category}</span>
+            <span>{this.expenseDetails.category}</span>
           </div>
           <div class="field">
             <span class="label">Date:</span>
-            <span class="value">{this.expenseDetails.date}</span>
+            <span>{this.expenseDetails.date}</span>
           </div>
         </div>
+        <td class="buttons-container">
+          <custom-button
+            color="secondary"
+            onClick={(event: Event) => {
+              event.stopPropagation();
+              this.handleUpdateClick(this.expenseId);
+            }}
+          >
+            EDIT
+          </custom-button>
+          <custom-button
+            color="danger"
+            onClick={(event: Event) => {
+              event.stopPropagation();
+              this.handleDeleteClick(this.expenseId);
+            }}
+          >
+            Delete
+          </custom-button>
+        </td>
       </div>
     );
   }
