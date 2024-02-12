@@ -16,13 +16,9 @@
 }
 
 .danger {
-  background-color: #dc3545;
+  background-color: var(--danger-color)
 }
 
 .secondary {
-  background-color: #007bff;
-}
-
-.success {
-  background-color: #28a745;
+  background-color: var(--secondary-color);
 }

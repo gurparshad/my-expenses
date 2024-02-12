@@ -76,15 +76,28 @@ export class ExpenseChart {
           scales: {
             x: {
               stacked: true,
-              // ticks: {
-              //   color: 'red',
-              // },
+              grid: {
+                display: false,
+              },
+              ticks: {
+                color: '#B4D1D5',
+              },
             },
             y: {
               stacked: true,
-              // ticks: {
-              //   color: 'blue',
-              // },
+              grid: {
+                display: false,
+              },
+              ticks: {
+                color: '#B4D1D5',
+              },
+            },
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: '#B4D1D5', // Change the color of the legend labels
+              },
             },
           },
         },

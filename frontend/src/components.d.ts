@@ -10,7 +10,7 @@ export namespace Components {
     interface AppRoot {
     }
     interface CustomButton {
-        "color": 'danger' | 'success' | 'secondary';
+        "color": 'danger' | 'secondary';
         "disabled": boolean;
         "type": 'button' | 'submit' | 'reset';
     }
@@ -125,7 +125,7 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface CustomButton {
-        "color"?: 'danger' | 'success' | 'secondary';
+        "color"?: 'danger' | 'secondary';
         "disabled"?: boolean;
         "onButtonClick"?: (event: CustomEvent<void>) => void;
         "type"?: 'button' | 'submit' | 'reset';

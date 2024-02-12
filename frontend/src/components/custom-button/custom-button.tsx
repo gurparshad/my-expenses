@@ -8,7 +8,7 @@ import classNames from 'classnames';
 })
 export class CustomButton {
   @Prop() disabled: boolean;
-  @Prop() color: 'danger' | 'success' | 'secondary';
+  @Prop() color: 'danger' | 'secondary';
   @Prop() type: 'button' | 'submit' | 'reset' = 'button';
   @Event() buttonClick: EventEmitter<void>;
 
@@ -20,7 +20,6 @@ export class CustomButton {
     const buttonClasses = classNames('custom-button', {
       secondary: this.color === 'secondary',
       danger: this.color === 'danger',
-      success: this.color === 'success',
     });
     return (
       <button class={buttonClasses} onClick={this.handleClick} disabled={this.disabled} type={this.type}>
