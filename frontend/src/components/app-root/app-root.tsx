@@ -21,7 +21,7 @@ export class AppRoot {
         <main>
           <stencil-router>
             <stencil-route-switch scrollTopOffset={0}>
-              <stencil-route url="/" component="app-home" exact={true} />
+              <stencil-route url="/" component="expense-list" exact={true} />
               <stencil-route url="/details/:expenseId" component="expense-details" />
               <stencil-route url="/create" component="expense-form" componentProps={{ mode: 'create' }} />
               <stencil-route url="/edit/:expenseId" component="expense-form" componentProps={{ mode: 'edit' }} />

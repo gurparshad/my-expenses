@@ -2,8 +2,8 @@ import { Component, Prop, State, h } from '@stencil/core';
 import Chart from 'chart.js/auto';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
-import { generateYears } from '../../utils/generateYears';
 import { ExpensesData } from '../../types';
+import { Categories, Months, Years } from '../../utils/constants';
 
 @Component({
   tag: 'expense-chart',
@@ -24,28 +24,10 @@ export class ExpenseChart {
   private chartInstance: Chart;
   private monthlyCategoryExpenses: { [month: string]: { [category: string]: number } } = {}; // Add state to store monthly category expenses
 
-  private categories = [
-    'food-and-dining',
-    'transportation',
-    'housing',
-    'utilities',
-    'entertainment',
-    'health-and-fitness',
-    'shopping',
-    'travel',
-    'education',
-    'personal-care',
-    'others',
-  ];
-
-  private months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  private years = generateYears();
-
   private async fetchExpenses() {
     try {
       this.expenseApi = new ExpenseApi();
       this.expenses = await this.expenseApi.getExpenses(undefined, undefined, undefined, this.startDate, this.endDate);
-      console.log('this.expenses-->>', this.expenses);
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
@@ -71,14 +53,14 @@ export class ExpenseChart {
 
   private renderChart() {
     const months = Object.keys(this.monthlyCategoryExpenses);
-    const datasets = this.categories.map((category, index) => ({
+    const datasets = Categories.map((category, index) => ({
       label: category,
       data: months.map(month => this.monthlyCategoryExpenses[month][category] || 0),
       backgroundColor: this.generateColor(index),
     }));
 
     if (this.chartInstance) {
-      this.chartInstance.data.labels = this.months;
+      this.chartInstance.data.labels = Months;
       this.chartInstance.data.datasets = datasets;
       this.chartInstance.update();
     } else {
@@ -86,7 +68,7 @@ export class ExpenseChart {
       this.chartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: this.months,
+          labels: Months,
           datasets: datasets,
         },
         options: {
@@ -131,15 +113,14 @@ export class ExpenseChart {
   }
 
   render() {
-    console.log('date problem--->>', this.calculateMonthlyCategoryExpenses());
     return (
       <div>
         <h1>Chart</h1>
         <div>
           <label htmlFor="year-select">Year:</label>
           <select id="year-select" onChange={event => this.handleYearChange(event)}>
-            {this.years.map(year => (
-              <option value={year} selected={Number(this.selectedYear) === year}>
+            {Years.map(year => (
+              <option value={year} selected={this.selectedYear === year}>
                 {year}
               </option>
             ))}

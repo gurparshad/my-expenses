@@ -1,13 +1,11 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
-import { generateYears } from '../../utils/generateYears';
 import { Expense } from '../../types';
-import { Categories, Months } from '../../utils/constants';
 
 @Component({
-  tag: 'app-home',
-  styleUrl: 'app-home.css',
+  tag: 'expense-list',
+  styleUrl: 'expense-list.css',
   shadow: true,
 })
 export class AppHome {
@@ -21,8 +19,6 @@ export class AppHome {
   @State() selectedYear: string = '';
   @State() startDate: string = '';
   @State() endDate: string = '';
-
-  private years = generateYears();
 
   private expenseApi: ExpenseApi;
 
@@ -85,6 +81,14 @@ export class AppHome {
     this.fetchExpenses();
   }
 
+  private async handleCategorySelect(event: Event) {
+    this.selectedCategory = (event.target as HTMLSelectElement).value;
+    const params = new URLSearchParams(window.location.search);
+    params.set('category', this.selectedCategory);
+    this.history.push(window.location.pathname + '?' + params.toString());
+    this.fetchExpenses();
+  }
+
   private async nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
@@ -103,14 +107,6 @@ export class AppHome {
       this.history.push(window.location.pathname + '?' + params.toString());
       await this.fetchExpenses();
     }
-  }
-
-  private async handleCategorySelect(event: Event) {
-    this.selectedCategory = (event.target as HTMLSelectElement).value;
-    const params = new URLSearchParams(window.location.search);
-    params.set('category', this.selectedCategory);
-    this.history.push(window.location.pathname + '?' + params.toString());
-    this.fetchExpenses();
   }
 
   private handleRowClick(expenseId: number) {
@@ -136,34 +132,14 @@ export class AppHome {
   render() {
     return (
       <div class="app-home">
-        <div class="filter">
-          <label htmlFor="category-select">Category:</label>
-          <select id="category-select" onChange={event => this.handleCategorySelect(event)}>
-            <option value="">All</option>
-            {Categories.map(category => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="month-select">Month:</label>
-          <select id="month-select" onChange={event => this.handleMonthChange(event)}>
-            <option value="">All</option>
-            {Months.map(month => (
-              <option value={month.value} selected={this.selectedMonth === month.value}>
-                {month.label}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="year-select">Year:</label>
-          <select id="year-select" onChange={event => this.handleYearChange(event)}>
-            {this.years.map(year => (
-              <option value={year} selected={Number(this.selectedYear) === year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
+        <expense-list-filters
+          selectedCategory={this.selectedCategory}
+          selectedMonth={this.selectedMonth}
+          selectedYear={this.selectedYear}
+          handleCategorySelect={(event: Event) => this.handleCategorySelect(event)}
+          handleMonthChange={(event: Event) => this.handleMonthChange(event)}
+          handleYearChange={(event: Event) => this.handleYearChange(event)}
+        ></expense-list-filters>
         {this.expenses.length === 0 ? (
           <p class="expenses-not-found">No Expenses found. Try changing the time period or category!!</p>
         ) : (
@@ -210,17 +186,12 @@ export class AppHome {
               </tbody>
             </table>
             {this.totalPages > 1 && (
-              <div class="pagination">
-                <custom-button color="secondary" onClick={() => this.prevPage()} disabled={this.currentPage === 1}>
-                  Previous
-                </custom-button>
-                <span>
-                  Page {this.currentPage} of {this.totalPages}
-                </span>
-                <custom-button color="secondary" onClick={() => this.nextPage()} disabled={this.currentPage === this.totalPages}>
-                  Next
-                </custom-button>
-              </div>
+              <expense-pagination
+                currentPage={this.currentPage}
+                totalPages={this.totalPages}
+                onPrevPage={() => this.prevPage()}
+                onNextPage={() => this.nextPage()}
+              ></expense-pagination>
             )}
           </div>
         )}

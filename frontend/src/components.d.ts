@@ -7,12 +7,6 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { MatchResults, RouterHistory } from "@stencil-community/router";
 export namespace Components {
-    interface AppHome {
-        "history": RouterHistory;
-    }
-    interface AppProfile {
-        "match": MatchResults;
-    }
     interface AppRoot {
     }
     interface CustomButton {
@@ -32,6 +26,21 @@ export namespace Components {
         "match": MatchResults;
         "mode": 'create' | 'edit';
     }
+    interface ExpenseList {
+        "history": RouterHistory;
+    }
+    interface ExpenseListFilters {
+        "handleCategorySelect": (event: Event) => void;
+        "handleMonthChange": (event: Event) => void;
+        "handleYearChange": (event: Event) => void;
+        "selectedCategory": string;
+        "selectedMonth": string;
+        "selectedYear": string;
+    }
+    interface ExpensePagination {
+        "currentPage": number;
+        "totalPages": number;
+    }
     interface ModeSwitcher {
     }
     interface NavBar {
@@ -39,18 +48,6 @@ export namespace Components {
     }
 }
 declare global {
-    interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
-    }
-    var HTMLAppHomeElement: {
-        prototype: HTMLAppHomeElement;
-        new (): HTMLAppHomeElement;
-    };
-    interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {
-    }
-    var HTMLAppProfileElement: {
-        prototype: HTMLAppProfileElement;
-        new (): HTMLAppProfileElement;
-    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
     var HTMLAppRootElement: {
@@ -81,6 +78,24 @@ declare global {
         prototype: HTMLExpenseFormElement;
         new (): HTMLExpenseFormElement;
     };
+    interface HTMLExpenseListElement extends Components.ExpenseList, HTMLStencilElement {
+    }
+    var HTMLExpenseListElement: {
+        prototype: HTMLExpenseListElement;
+        new (): HTMLExpenseListElement;
+    };
+    interface HTMLExpenseListFiltersElement extends Components.ExpenseListFilters, HTMLStencilElement {
+    }
+    var HTMLExpenseListFiltersElement: {
+        prototype: HTMLExpenseListFiltersElement;
+        new (): HTMLExpenseListFiltersElement;
+    };
+    interface HTMLExpensePaginationElement extends Components.ExpensePagination, HTMLStencilElement {
+    }
+    var HTMLExpensePaginationElement: {
+        prototype: HTMLExpensePaginationElement;
+        new (): HTMLExpensePaginationElement;
+    };
     interface HTMLModeSwitcherElement extends Components.ModeSwitcher, HTMLStencilElement {
     }
     var HTMLModeSwitcherElement: {
@@ -94,24 +109,19 @@ declare global {
         new (): HTMLNavBarElement;
     };
     interface HTMLElementTagNameMap {
-        "app-home": HTMLAppHomeElement;
-        "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
         "custom-button": HTMLCustomButtonElement;
         "expense-chart": HTMLExpenseChartElement;
         "expense-details": HTMLExpenseDetailsElement;
         "expense-form": HTMLExpenseFormElement;
+        "expense-list": HTMLExpenseListElement;
+        "expense-list-filters": HTMLExpenseListFiltersElement;
+        "expense-pagination": HTMLExpensePaginationElement;
         "mode-switcher": HTMLModeSwitcherElement;
         "nav-bar": HTMLNavBarElement;
     }
 }
 declare namespace LocalJSX {
-    interface AppHome {
-        "history"?: RouterHistory;
-    }
-    interface AppProfile {
-        "match"?: MatchResults;
-    }
     interface AppRoot {
     }
     interface CustomButton {
@@ -132,19 +142,37 @@ declare namespace LocalJSX {
         "match"?: MatchResults;
         "mode"?: 'create' | 'edit';
     }
+    interface ExpenseList {
+        "history"?: RouterHistory;
+    }
+    interface ExpenseListFilters {
+        "handleCategorySelect"?: (event: Event) => void;
+        "handleMonthChange"?: (event: Event) => void;
+        "handleYearChange"?: (event: Event) => void;
+        "selectedCategory"?: string;
+        "selectedMonth"?: string;
+        "selectedYear"?: string;
+    }
+    interface ExpensePagination {
+        "currentPage"?: number;
+        "onNextPage"?: (event: CustomEvent<void>) => void;
+        "onPrevPage"?: (event: CustomEvent<void>) => void;
+        "totalPages"?: number;
+    }
     interface ModeSwitcher {
     }
     interface NavBar {
         "items"?: { label: string; url: string }[];
     }
     interface IntrinsicElements {
-        "app-home": AppHome;
-        "app-profile": AppProfile;
         "app-root": AppRoot;
         "custom-button": CustomButton;
         "expense-chart": ExpenseChart;
         "expense-details": ExpenseDetails;
         "expense-form": ExpenseForm;
+        "expense-list": ExpenseList;
+        "expense-list-filters": ExpenseListFilters;
+        "expense-pagination": ExpensePagination;
         "mode-switcher": ModeSwitcher;
         "nav-bar": NavBar;
     }
@@ -153,13 +181,14 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
-            "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "custom-button": LocalJSX.CustomButton & JSXBase.HTMLAttributes<HTMLCustomButtonElement>;
             "expense-chart": LocalJSX.ExpenseChart & JSXBase.HTMLAttributes<HTMLExpenseChartElement>;
             "expense-details": LocalJSX.ExpenseDetails & JSXBase.HTMLAttributes<HTMLExpenseDetailsElement>;
             "expense-form": LocalJSX.ExpenseForm & JSXBase.HTMLAttributes<HTMLExpenseFormElement>;
+            "expense-list": LocalJSX.ExpenseList & JSXBase.HTMLAttributes<HTMLExpenseListElement>;
+            "expense-list-filters": LocalJSX.ExpenseListFilters & JSXBase.HTMLAttributes<HTMLExpenseListFiltersElement>;
+            "expense-pagination": LocalJSX.ExpensePagination & JSXBase.HTMLAttributes<HTMLExpensePaginationElement>;
             "mode-switcher": LocalJSX.ModeSwitcher & JSXBase.HTMLAttributes<HTMLModeSwitcherElement>;
             "nav-bar": LocalJSX.NavBar & JSXBase.HTMLAttributes<HTMLNavBarElement>;
         }
