@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
 import { ExpensesData, Month } from '../../types';
-import { Categories, ChartColors, Months, Years } from '../../utils/constants';
+import { ChartColors, ExpenseCategories, Months, Years } from '../../utils/constants';
 
 @Component({
   tag: 'expense-chart',
@@ -39,7 +39,7 @@ export class ExpenseChart {
       const monthIndex = index + 1;
       this.monthlyCategoryExpenses[monthIndex] = {};
 
-      Categories.forEach(category => {
+      Object.values(ExpenseCategories).forEach(category => {
         this.monthlyCategoryExpenses[monthIndex][category] = 0;
       });
 
@@ -55,7 +55,7 @@ export class ExpenseChart {
   private renderChart() {
     const months = Object.keys(this.monthlyCategoryExpenses);
     const monthLabels = Months.map((month: Month) => month.label);
-    const datasets = Categories.map((category, index) => ({
+    const datasets = Object.values(ExpenseCategories).map((category, index) => ({
       label: category,
       data: months.map(month => this.monthlyCategoryExpenses[month][category] || 0),
       backgroundColor: this.generateColor(index),

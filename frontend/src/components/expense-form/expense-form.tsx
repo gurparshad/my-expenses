@@ -1,7 +1,7 @@
 import { Component, Prop, State, h, Element } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { MatchResults, RouterHistory } from '@stencil-community/router';
-import { ExpenseCategory } from '../../utils/constants';
+import { ExpenseCategories } from '../../utils/constants';
 import '../custom-button/custom-button';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
@@ -124,8 +124,8 @@ export class CreateExpense {
             <label>Category:</label>
             <select class="category-select" id="expense-category-select" onChange={(event: Event) => this.handleCategoryChange(event)}>
               <option value="">Select category</option>
-              {Object.values(ExpenseCategory).map(category => (
-                <option value={category} selected={this.category === category}>
+              {Object.values(ExpenseCategories).map(category => (
+                <option key={category} value={category} selected={this.category === category}>
                   {category}
                 </option>
               ))}

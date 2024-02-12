@@ -1,4 +1,4 @@
-export enum ExpenseCategory {
+export enum ExpenseCategories {
   FoodAndDining = 'food-and-dining',
   Transportation = 'transportation',
   Housing = 'housing',

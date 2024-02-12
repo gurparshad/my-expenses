@@ -1,4 +1,4 @@
-import { ExpenseCategory } from '../../utils/constants';
+import { ExpenseCategories } from '../../utils/constants';
 import { readDataFromFile } from '../../utils/readDataFromFile';
 import { Expense } from '../../utils/types';
 import { Request, Response } from 'express';
@@ -72,7 +72,7 @@ export const createExpense = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Description, amount, category and Date are required fields and amount must not be zero.' });
     }
 
-    if (!Object.values(ExpenseCategory).includes(category)) {
+    if (!Object.values(ExpenseCategories).includes(category)) {
       return res.status(400).json({ error: 'Invalid category. Please provide one of the predefined categories' });
     }
 
@@ -103,7 +103,7 @@ export const updateExpense = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Description, amount, category and Date are required fields and amount must not be zero.' });
     }
 
-    if (!Object.values(ExpenseCategory).includes(category)) {
+    if (!Object.values(ExpenseCategories).includes(category)) {
       return res.status(400).json({ error: 'Invalid category. Please provide one of the predefined categories' });
     }
 

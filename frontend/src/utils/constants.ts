@@ -1,4 +1,4 @@
-export enum ExpenseCategory {
+export enum ExpenseCategories {
   FoodAndDining = 'food-and-dining',
   Transportation = 'transportation',
   Housing = 'housing',
@@ -25,20 +25,6 @@ export const Months = [
   { value: '10', label: 'October' },
   { value: '11', label: 'November' },
   { value: '12', label: 'December' },
-];
-
-export const Categories = [
-  'food-and-dining',
-  'transportation',
-  'housing',
-  'utilities',
-  'entertainment',
-  'health-and-fitness',
-  'shopping',
-  'travel',
-  'education',
-  'personal-care',
-  'others',
 ];
 
 export const Years = ['2024', '2023', '2022', '2021', '2020'];

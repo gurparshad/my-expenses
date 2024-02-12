@@ -51,11 +51,6 @@ export class ExpenseApi {
     );
   };
 
-  public getCategories = async () => {
-    return await this.handleRequest(this.client.get(this.routes.GET_EXPENSE_CATEGORIES));
-  };
-
-
   public getExpenses = async (pageNumber: number, pageSize: number, category: string, startDate: string, endDate: string) => {
     return await this.handleRequest(
       this.client.get(this.routes.GET_EXPENSES, {

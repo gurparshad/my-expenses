@@ -1,5 +1,5 @@
 import { Component, Prop, h } from '@stencil/core';
-import { Categories, Months, Years } from '../../../utils/constants';
+import { ExpenseCategories, Months, Years } from '../../../utils/constants';
 
 @Component({
   tag: 'expense-list-filters',
@@ -23,7 +23,7 @@ export class ExpenseListFilters {
           <label htmlFor="category-select">Category:</label>
           <select id="category-select" onChange={event => this.handleCategorySelect(event)}>
             <option value="">All</option>
-            {Categories.map(category => (
+            {Object.values(ExpenseCategories).map(category => (
               <option key={category} value={category} selected={this.selectedCategory === category}>
                 {category}
               </option>
