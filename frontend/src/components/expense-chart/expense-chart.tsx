@@ -35,19 +35,20 @@ export class ExpenseChart {
 
   private calculateMonthlyCategoryExpenses() {
     this.monthlyCategoryExpenses = {};
-    this.expenses.expenses.forEach(expense => {
-      const month = new Date(expense.date).getMonth();
-      const category = expense.category;
+    Months.forEach((month, index) => {
+      const monthIndex = index + 1;
+      this.monthlyCategoryExpenses[monthIndex] = {};
 
-      if (!this.monthlyCategoryExpenses[month]) {
-        this.monthlyCategoryExpenses[month] = {};
-      }
+      Categories.forEach(category => {
+        this.monthlyCategoryExpenses[monthIndex][category] = 0;
+      });
 
-      if (!this.monthlyCategoryExpenses[month][category]) {
-        this.monthlyCategoryExpenses[month][category] = 0;
-      }
-
-      this.monthlyCategoryExpenses[month][category] += expense.amount;
+      this.expenses.expenses.forEach(expense => {
+        const expenseMonth = new Date(expense.date).getMonth() + 1;
+        if (expenseMonth === monthIndex) {
+          this.monthlyCategoryExpenses[monthIndex][expense.category] += expense.amount;
+        }
+      });
     });
   }
 
@@ -114,6 +115,7 @@ export class ExpenseChart {
     params.set('endDate', this.endDate);
     this.history.push(window.location.pathname + '?' + params.toString());
     await this.fetchExpenses();
+
     this.calculateMonthlyCategoryExpenses();
     this.renderChart();
   }
