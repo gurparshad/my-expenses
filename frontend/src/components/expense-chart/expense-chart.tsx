@@ -108,7 +108,7 @@ export class ExpenseChart {
     params.set('endDate', this.endDate);
     this.history.push(window.location.pathname + '?' + params.toString());
     await this.fetchExpenses();
-    this.calculateMonthlyCategoryExpenses(); // Update the data
+    this.calculateMonthlyCategoryExpenses();
     this.renderChart();
   }
 
@@ -131,6 +131,7 @@ export class ExpenseChart {
   }
 
   render() {
+    console.log('date problem--->>', this.calculateMonthlyCategoryExpenses());
     return (
       <div>
         <h1>Chart</h1>

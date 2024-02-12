@@ -1,8 +1,10 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, h, Element } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
 import { ExpenseCategory } from '../../utils/constants';
 import '../custom-button/custom-button';
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
 
 @Component({
   tag: 'create-expense',
@@ -14,9 +16,12 @@ export class CreateExpense {
   @State() description: string = '';
   @State() amount: number = 0;
   @State() category: string = '';
+  @State() date: string = '';
   @State() descriptionError: string = '';
   @State() amountError: string = '';
   @State() categoryError: string = '';
+  @State() dateError: string = '';
+  @Element() private element: HTMLElement;
 
   private expenseApi: ExpenseApi;
 
@@ -24,11 +29,17 @@ export class CreateExpense {
     this.expenseApi = new ExpenseApi();
   }
 
+  componentDidLoad() {
+    const options = {};
+    const input = this.element.shadowRoot.querySelector('.datepicker') as HTMLInputElement;
+    flatpickr(input, options);
+  }
+
   private async createExpense() {
-    console.log('in create expense');
     this.descriptionError = '';
     this.amountError = '';
     this.categoryError = '';
+    this.dateError = '';
 
     if (!this.description.trim()) {
       this.descriptionError = 'Description is required';
@@ -42,12 +53,16 @@ export class CreateExpense {
       this.categoryError = 'Category is required';
     }
 
+    if (!this.date) {
+      this.dateError = 'Date is required';
+    }
+
     if (this.descriptionError || this.amountError || this.categoryError) {
       return;
     }
 
     try {
-      await this.expenseApi.createExpense(this.description, this.amount, this.category);
+      await this.expenseApi.createExpense(this.description, this.amount, this.category, this.date);
       this.history.push('/');
       setTimeout(() => {
         window.alert('Expense created successfully!');
@@ -95,6 +110,11 @@ export class CreateExpense {
             ))}
           </select>
           <div class="error-message">{this.categoryError}</div>
+        </div>
+        <div class="input-group">
+          <label>Date:</label>
+          <input type="text" class="datepicker" onInput={(event: Event) => this.handleInputChange(event, 'date')} />
+          <div class="error-message">{this.dateError}</div>
         </div>
         <custom-button color="secondary" onClick={() => this.createExpense()}>
           Create

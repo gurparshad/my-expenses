@@ -25,11 +25,7 @@ export class ModeSwitcher {
   render() {
     return (
       <div onClick={() => this.toggleMode()}>
-        {this.darkMode ? (
-          <img src="assets/icon/sun-solid.svg" alt="" class="mode-icon" style={{}} />
-        ) : (
-          <img src="assets/icon/moon-solid.svg" alt="" style={{ width: '20px', height: '20px' }} />
-        )}
+        {this.darkMode ? <img src="assets/icon/sun-solid.svg" alt="light" class="mode-icon" /> : <img src="assets/icon/moon-solid.svg" alt="dark" class="mode-icon" />}
       </div>
     );
   }

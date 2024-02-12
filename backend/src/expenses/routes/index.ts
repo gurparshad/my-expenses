@@ -71,10 +71,10 @@ expensesRouter.get('/:expenseId', async (req: Request, res: Response) => {
 
 expensesRouter.post('/', async (req: Request, res: Response) => {
   try {
-    const { description, amount, category } = req.body;
+    const { description, amount, category, date } = req.body;
 
-    if (!description || !amount || !category) {
-      return res.status(400).json({ error: 'Description, amount, and category are required fields and amount must not be zero.' });
+    if (!description || !amount || !category || !date) {
+      return res.status(400).json({ error: 'Description, amount, category and Date are required fields and amount must not be zero.' });
     }
 
     if (!Object.values(ExpenseCategory).includes(category)) {
@@ -83,11 +83,9 @@ expensesRouter.post('/', async (req: Request, res: Response) => {
 
     let expenses: Expense[] = await readDataFromFile();
 
-    const currentDate = new Date().toISOString().replace('T', ' ').split('.')[0];
-
     const id = expenses.length > 0 ? Math.max(...expenses.map((e: Expense) => e.id)) + 1 : 1;
 
-    const newExpense = { id, description, date: currentDate, amount, category };
+    const newExpense = { id, description, date, amount, category };
 
     expenses.push(newExpense);
 
