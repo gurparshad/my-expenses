@@ -201,5 +201,12 @@
     "date": "2024-10-28",
     "amount": 12.5,
     "category": "personal-care"
+  },
+  {
+    "id": 30,
+    "description": "new controller testing 4009",
+    "date": "2024-04-12",
+    "amount": 100,
+    "category": "food-and-dining"
   }
 ]
