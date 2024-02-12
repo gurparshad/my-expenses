@@ -208,5 +208,12 @@
     "date": "2024-04-12",
     "amount": 100,
     "category": "food-and-dining"
+  },
+  {
+    "id": 31,
+    "description": "final destination 2",
+    "date": "2024-02-26",
+    "amount": 42,
+    "category": "housing"
   }
 ]

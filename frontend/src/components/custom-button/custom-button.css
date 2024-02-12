@@ -16,7 +16,7 @@
 }
 
 .danger {
-  background-color: var(--danger-color)
+  background-color: var(--danger-color);
 }
 
 .secondary {

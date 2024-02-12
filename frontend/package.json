@@ -6,7 +6,8 @@
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
-    "generate": "stencil generate"
+    "format": "prettier --write .",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix"
   },
   "devDependencies": {
     "@stencil-community/router": "^1.0.2",
@@ -14,9 +15,14 @@
     "@types/babel__traverse": "^7.20.0",
     "@types/jest": "^27.0.3",
     "@types/node": "^20.11.16",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.56.0",
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
-    "puppeteer": "^10.0.0"
+    "prettier": "^3.2.5",
+    "puppeteer": "^10.0.0",
+    "typescript": "^5.3.3"
   },
   "license": "MIT",
   "dependencies": {

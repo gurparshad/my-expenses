@@ -28,19 +28,19 @@ td {
   padding: 20px;
 }
 
-.buttons-container{
+.buttons-container {
   display: flex;
-  gap: 20px
+  gap: 20px;
 }
 
-.pagination{
+.pagination {
   display: flex;
   gap: 20px;
   align-items: center;
   justify-content: center;
 }
 
-.expenses-not-found{
+.expenses-not-found {
   text-align: center;
   margin-top: 50px;
   color: grey;

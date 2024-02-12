@@ -1,19 +1,18 @@
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 export class ExpenseApi {
   private client: AxiosInstance;
 
   private routes = {
-    CREATE_EXPENSE: "expenses",
-    GET_EXPENSES: "expenses",
+    CREATE_EXPENSE: 'expenses',
+    GET_EXPENSES: 'expenses',
     GET_EXPENSE: (expense_id: string) => `expenses/${expense_id}`,
     UPDATE_EXPENSE: (expense_id: string) => `expenses/${expense_id}`,
     DELETE_EXPENSE: (expense_id: string) => `expenses/${expense_id}`,
-    GET_EXPENSE_CATEGORIES: 'expense/categories'
+    GET_EXPENSE_CATEGORIES: 'expense/categories',
   };
 
-  private handleRequest = async (request: Promise<AxiosResponse<any>>) =>
-    request.then(this.handleResult).catch(this.handleError);
+  private handleRequest = async (request: Promise<AxiosResponse<any>>) => request.then(this.handleResult).catch(this.handleError);
 
   private handleError(err: AxiosError) {
     //@ts-ignore
@@ -26,19 +25,19 @@ export class ExpenseApi {
 
   constructor() {
     this.client = axios.create({
-      baseURL: "http://localhost:3000"
+      baseURL: 'http://localhost:3000',
     });
   }
 
   public createExpense = async (description: string, amount: number, category: string, date: string) => {
-    console.log('in api')
+    console.log('in api');
     return await this.handleRequest(
       this.client.post(this.routes.CREATE_EXPENSE, {
         description,
         amount,
         category,
-        date
-      })
+        date,
+      }),
     );
   };
 
@@ -48,16 +47,14 @@ export class ExpenseApi {
         description,
         amount,
         category,
-        date
-      })
+        date,
+      }),
     );
   };
 
   public getCategories = async () => {
-    return await this.handleRequest(
-      this.client.get(this.routes.GET_EXPENSE_CATEGORIES)
-    );
-  }
+    return await this.handleRequest(this.client.get(this.routes.GET_EXPENSE_CATEGORIES));
+  };
 
   // TODO: check if we have to add optional arguments or not.
   public getExpenses = async (pageNumber?: number, pageSize?: number, category?: string, startDate?: string, endDate?: string) => {
@@ -68,22 +65,17 @@ export class ExpenseApi {
           pageSize: pageSize,
           category: category,
           startDate: startDate,
-          endDate: endDate
+          endDate: endDate,
         },
-      })
+      }),
     );
   };
 
   public getExpense = async (expense_id: string) => {
-    return await this.handleRequest(
-      this.client.get(this.routes.GET_EXPENSE(expense_id))
-    );
+    return await this.handleRequest(this.client.get(this.routes.GET_EXPENSE(expense_id)));
   };
 
   public deleteExpense = async (expense_id: string) => {
-    return await this.handleRequest(
-      this.client.delete(this.routes.DELETE_EXPENSE(expense_id.toString()))
-    );
+    return await this.handleRequest(this.client.delete(this.routes.DELETE_EXPENSE(expense_id.toString())));
   };
-
 }

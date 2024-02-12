@@ -14,17 +14,17 @@
   --table-even-row-background-dark: #525050;
   --table-heading-background-dark: #473f3f;
   --table-row-hover-dark: #252121;
-  --secondary-color-dark:  #0462c7;
+  --secondary-color-dark: #0462c7;
   --danger-color-dark: #c94553;
 
   /* default */
   --table-even-row-background: var(--table-even-row-background-light);
-  --table-heading-background:  var(--table-heading-background-light);
+  --table-heading-background: var(--table-heading-background-light);
   --table-row-hover: var(--table-row-hover-light);
   --background-color: var(--background-color-light);
   --text-color: var(--text-color-light);
   --secondary-color: var(--secondary-color-light);
-  --danger-color: var(--danger-color-light)
+  --danger-color: var(--danger-color-light);
 }
 
 [data-theme='dark'] {
@@ -34,7 +34,7 @@
   --table-even-row-background: var(--table-even-row-background-dark);
   --table-row-hover: var(--table-row-hover-dark);
   --secondary-color: var(--secondary-color-dark);
-  --danger-color: var(--danger-color-dark)
+  --danger-color: var(--danger-color-dark);
 }
 
 body {

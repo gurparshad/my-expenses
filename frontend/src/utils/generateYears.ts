@@ -4,4 +4,4 @@ export const generateYears = () => {
   const endYear = currentYear;
   const years = Array.from({ length: endYear - startYear + 1 }, (_, index) => startYear + index);
   return years.reverse();
-}
+};
