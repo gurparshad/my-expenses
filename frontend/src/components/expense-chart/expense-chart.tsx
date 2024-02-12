@@ -2,7 +2,7 @@ import { Component, Prop, State, h } from '@stencil/core';
 import Chart from 'chart.js/auto';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
-import { ExpensesData } from '../../types';
+import { ExpensesData, Month } from '../../types';
 import { Categories, Months, Years } from '../../utils/constants';
 
 @Component({
@@ -53,6 +53,7 @@ export class ExpenseChart {
 
   private renderChart() {
     const months = Object.keys(this.monthlyCategoryExpenses);
+    const monthLabels = Months.map((month: Month) => month.label);
     const datasets = Categories.map((category, index) => ({
       label: category,
       data: months.map(month => this.monthlyCategoryExpenses[month][category] || 0),
@@ -68,13 +69,23 @@ export class ExpenseChart {
       this.chartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: Months,
+          labels: monthLabels,
           datasets: datasets,
         },
         options: {
           scales: {
-            x: { stacked: true },
-            y: { stacked: true },
+            x: {
+              stacked: true,
+              // ticks: {
+              //   color: 'red',
+              // },
+            },
+            y: {
+              stacked: true,
+              // ticks: {
+              //   color: 'blue',
+              // },
+            },
           },
         },
       });

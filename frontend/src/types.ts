@@ -13,3 +13,8 @@ export interface ExpensesData {
   pageSize?: number;
   totalPages?: number;
 }
+
+export interface Month {
+  value: string;
+  label: string;
+}

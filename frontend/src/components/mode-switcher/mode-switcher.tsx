@@ -24,8 +24,8 @@ export class ModeSwitcher {
 
   render() {
     return (
-      <div onClick={() => this.toggleMode()}>
-        {this.darkMode ? <img src="assets/icon/sun-solid.svg" alt="light" class="mode-icon" /> : <img src="assets/icon/moon-solid.svg" alt="dark" class="mode-icon" />}
+      <div class="mode-icon" onClick={() => this.toggleMode()}>
+        {this.darkMode ? <ion-icon name="sunny-outline"></ion-icon> : <ion-icon name="cloudy-night-outline"></ion-icon>}
       </div>
     );
   }
