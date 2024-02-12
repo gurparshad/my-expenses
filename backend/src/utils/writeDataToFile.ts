@@ -10,4 +10,4 @@ export const writeDataToFile = (data: Expense[]) => {
     console.error('Error writing to JSON file:', error);
     throw new Error('Internal server error');
   }
-}
+};

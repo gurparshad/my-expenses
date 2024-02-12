@@ -9,5 +9,5 @@ export enum ExpenseCategory {
   Travel = 'travel',
   Education = 'education',
   PersonalCare = 'personal-care',
-  Others = 'others'
+  Others = 'others',
 }

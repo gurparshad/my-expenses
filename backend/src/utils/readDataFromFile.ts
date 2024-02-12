@@ -10,4 +10,4 @@ export const readDataFromFile = () => {
     console.error('Error reading JSON file:', error);
     throw new Error('Internal server error');
   }
-}
+};
