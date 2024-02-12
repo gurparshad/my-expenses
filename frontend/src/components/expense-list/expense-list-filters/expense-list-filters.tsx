@@ -23,7 +23,7 @@ export class ExpenseListFilters {
         <select id="category-select" onChange={event => this.handleCategorySelect(event)}>
           <option value="">All</option>
           {Categories.map(category => (
-            <option key={category} value={category}>
+            <option key={category} value={category} selected={this.selectedCategory === category}>
               {category}
             </option>
           ))}
