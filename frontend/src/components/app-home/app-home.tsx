@@ -125,6 +125,9 @@ export class AppHome {
     try {
       await this.expenseApi.deleteExpense(expenseId);
       await this.fetchExpenses();
+      setTimeout(() => {
+        window.alert('Expense Deleted successfully!');
+      }, 100);
     } catch (error) {
       console.error('Error deleting expense:', error);
     }

@@ -1,5 +1,4 @@
 import { Component, Prop, h } from '@stencil/core';
-import '../mode-switcher/mode-switcher';
 
 @Component({
   tag: 'nav-bar',

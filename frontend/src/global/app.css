@@ -12,9 +12,7 @@
   --table-even-row-background-dark: #525050;
   --table-heading-background-dark: #473f3f;
   --table-row-hover-dark: #252121;
-}
 
-[data-theme='light'] {
   --table-even-row-background: var(--table-even-row-background-light);
   --table-heading-background:  var(--table-heading-background-light);
   --table-row-hover: var(--table-row-hover-light);
