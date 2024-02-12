@@ -1,8 +1,10 @@
 import { MatchResults, RouterHistory } from '@stencil-community/router';
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, h, Element } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { ExpenseCategory } from '../../utils/constants';
 import { Expense } from '../../types';
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
 
 @Component({
   tag: 'expense-edit',
@@ -16,6 +18,8 @@ export class ExpenseDetails {
   @State() descriptionError: string = '';
   @State() amountError: string = '';
   @State() categoryError: string = '';
+  @State() dateError: string = '';
+  @Element() private element: HTMLElement;
 
   private expenseApi: ExpenseApi;
 
@@ -29,10 +33,17 @@ export class ExpenseDetails {
     }
   }
 
+  componentDidLoad() {
+    const options = {};
+    const input = this.element.shadowRoot.querySelector('.datepicker') as HTMLInputElement;
+    flatpickr(input, options);
+  }
+
   private async handleUpdate() {
     this.descriptionError = '';
     this.amountError = '';
     this.categoryError = '';
+    this.dateError = '';
 
     if (!this.expenseDetails.description.trim()) {
       this.descriptionError = 'Description is required';
@@ -46,11 +57,21 @@ export class ExpenseDetails {
       this.categoryError = 'Category is required';
     }
 
-    if (this.descriptionError || this.amountError || this.categoryError) {
+    if (!this.expenseDetails.date) {
+      this.dateError = 'Date is required';
+    }
+
+    if (this.descriptionError || this.amountError || this.categoryError || this.dateError) {
       return;
     }
     try {
-      await this.expenseApi.updateExpense(this.expenseDetails.id, this.expenseDetails.description, this.expenseDetails.amount, this.expenseDetails.category);
+      await this.expenseApi.updateExpense(
+        this.expenseDetails.id,
+        this.expenseDetails.description,
+        this.expenseDetails.amount,
+        this.expenseDetails.category,
+        this.expenseDetails.date,
+      );
       this.history.push('/');
       setTimeout(() => {
         window.alert('Expense created successfully!');
@@ -62,11 +83,13 @@ export class ExpenseDetails {
 
   private handleInputChange(event: Event, property: string) {
     let value = (event.target as HTMLInputElement).value;
+    value = value.trim();
     if (property === 'amount') {
       this.expenseDetails.amount = Number(value);
-    } else {
-      value = value.trim();
+    } else if (property === 'description') {
       this.expenseDetails.description = value;
+    } else {
+      this.expenseDetails.date = value;
     }
   }
 
@@ -99,6 +122,11 @@ export class ExpenseDetails {
             ))}
           </select>
           <div class="error-message">{this.categoryError}</div>
+        </div>
+        <div class="input-group">
+          <label>Date:</label>
+          <input type="text" class="datepicker" value={this.expenseDetails.date} onInput={(event: Event) => this.handleInputChange(event, 'date')} />
+          <div class="error-message">{this.dateError}</div>
         </div>
         <custom-button color="secondary" onClick={() => this.handleUpdate()}>
           Update

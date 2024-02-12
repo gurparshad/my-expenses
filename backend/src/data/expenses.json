@@ -1,21 +1,21 @@
 [
   {
     "id": 2,
-    "description": "new asdfrer",
-    "date": "2024-01-08",
-    "amount": 150,
-    "category": "shopping"
+    "description": "new descriptiont test",
+    "date": "2024-01-31",
+    "amount": 120,
+    "category": "personal-care"
   },
   {
     "id": 3,
-    "description": "Dinner with friends",
+    "description": "2024-01-18",
     "date": "2024-01-06",
     "amount": 8.75,
     "category": "housing"
   },
   {
     "id": 6,
-    "description": "Dinner with friends",
+    "description": "2024-02-27",
     "date": "2024-02-06",
     "amount": 80.75,
     "category": "entertainment"
@@ -23,16 +23,16 @@
   {
     "id": 8,
     "description": "something 2",
-    "date": "2024-02-08",
+    "date": "2024-02-11",
     "amount": 200,
     "category": "shopping"
   },
   {
     "id": 11,
-    "description": "something 5",
+    "description": "2024-02-15",
     "date": "2024-02-08",
-    "amount": 560,
-    "category": "personal-care"
+    "amount": 557,
+    "category": "education"
   },
   {
     "id": 12,

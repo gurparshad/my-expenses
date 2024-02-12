@@ -102,6 +102,7 @@ expensesRouter.put('/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id);
     const { description, amount, category, date } = req.body;
+    console.log("description, amount, category, date-->>", description, amount, category, date);
 
     if (!description || !amount || !category || !date) {
       return res.status(400).json({ error: 'Description, amount, category and Date are required fields and amount must not be zero.' });

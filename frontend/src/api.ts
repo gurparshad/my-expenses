@@ -42,12 +42,13 @@ export class ExpenseApi {
     );
   };
 
-  public updateExpense = async (id: number, description: string, amount: number, category: string) => {
+  public updateExpense = async (id: number, description: string, amount: number, category: string, date: string) => {
     return await this.handleRequest(
-      this.client.patch(this.routes.UPDATE_EXPENSE(id.toString()), {
+      this.client.put(this.routes.UPDATE_EXPENSE(id.toString()), {
         description,
         amount,
-        category
+        category,
+        date
       })
     );
   };
