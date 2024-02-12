@@ -98,17 +98,13 @@ expensesRouter.post('/', async (req: Request, res: Response) => {
   }
 });
 
-expensesRouter.patch('/:id', async (req, res) => {
+expensesRouter.put('/:id', async (req, res) => {
   try {
-    const id = parseInt(req.params.id, 10);
-    const { description, amount, category } = req.body;
+    const id = parseInt(req.params.id);
+    const { description, amount, category, date } = req.body;
 
-    if (amount === 0) {
-      return res.status(400).json({ error: 'The amount must not be zero' });
-    }
-
-    if (!description.length) {
-      return res.status(400).json({ error: 'The description must not be empty' });
+    if (!description || !amount || !category || !date) {
+      return res.status(400).json({ error: 'Description, amount, category and Date are required fields and amount must not be zero.' });
     }
 
     if (!Object.values(ExpenseCategory).includes(category)) {
@@ -123,10 +119,10 @@ expensesRouter.patch('/:id', async (req, res) => {
       return res.status(404).json({ error: 'Expense not found' });
     }
 
-    expenses[index].description = description !== undefined && description.trim() !== '' ? description : expenses[index].description;
+    expenses[index].description = description ?? expenses[index].description;
     expenses[index].amount = amount ?? expenses[index].amount
-    expenses[index].date = expenses[index].date;
-    expenses[index].category = category !== undefined && category.trim() !== '' ? category : expenses[index].category;
+    expenses[index].date = date ?? expenses[index].date;
+    expenses[index].category = category ?? expenses[index].category;
 
     await writeDataToFile(expenses);
 

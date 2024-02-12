@@ -1,4 +1,4 @@
-.cus-button {
+.custom-button {
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -7,11 +7,11 @@
   font-size: 16px;
 }
 
-.cus-button:hover:not([disabled]) {
+.custom-button:hover:not([disabled]) {
   filter: brightness(90%);
 }
 
-.cus-button:disabled {
+.custom-button:disabled {
   opacity: 0.6;
 }
 

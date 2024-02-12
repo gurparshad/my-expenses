@@ -35,7 +35,10 @@ export class CreateExpense {
     flatpickr(input, options);
   }
 
-  private async createExpense() {
+  private async createExpense(event: Event) {
+    event.preventDefault();
+    console.log('inside createExpense');
+
     this.descriptionError = '';
     this.amountError = '';
     this.categoryError = '';
@@ -88,37 +91,38 @@ export class CreateExpense {
 
   render() {
     return (
-      // TODO: use form here
       <div class="create-expense">
         <h2>Create Expense</h2>
-        <div class="input-group">
-          <label>Description:</label>
-          <input type="text" value={this.description} onInput={(event: Event) => this.handleInputChange(event, 'description')} />
-          <div class="error-message">{this.descriptionError}</div>
-        </div>
-        <div class="input-group">
-          <label>Amount:</label>
-          <input type="number" value={this.amount} onInput={(event: Event) => this.handleInputChange(event, 'amount')} />
-          <div class="error-message">{this.amountError}</div>
-        </div>
-        <div class="input-group">
-          <label>Category:</label>
-          <select class="category-select" id="expense-category-select" onChange={(event: Event) => this.handleCategoryChange(event)}>
-            <option value="">Select category</option>
-            {Object.values(ExpenseCategory).map(category => (
-              <option value={category}>{category}</option>
-            ))}
-          </select>
-          <div class="error-message">{this.categoryError}</div>
-        </div>
-        <div class="input-group">
-          <label>Date:</label>
-          <input type="text" class="datepicker" onInput={(event: Event) => this.handleInputChange(event, 'date')} />
-          <div class="error-message">{this.dateError}</div>
-        </div>
-        <custom-button color="secondary" onClick={() => this.createExpense()}>
-          Create
-        </custom-button>
+        <form onSubmit={(event: Event) => this.createExpense(event)}>
+          <div class="input-group">
+            <label>Description:</label>
+            <input type="text" value={this.description} onInput={(event: Event) => this.handleInputChange(event, 'description')} />
+            <div class="error-message">{this.descriptionError}</div>
+          </div>
+          <div class="input-group">
+            <label>Amount:</label>
+            <input type="number" value={this.amount} onInput={(event: Event) => this.handleInputChange(event, 'amount')} />
+            <div class="error-message">{this.amountError}</div>
+          </div>
+          <div class="input-group">
+            <label>Category:</label>
+            <select class="category-select" id="expense-category-select" onChange={(event: Event) => this.handleCategoryChange(event)}>
+              <option value="">Select category</option>
+              {Object.values(ExpenseCategory).map(category => (
+                <option value={category}>{category}</option>
+              ))}
+            </select>
+            <div class="error-message">{this.categoryError}</div>
+          </div>
+          <div class="input-group">
+            <label>Date:</label>
+            <input type="text" class="datepicker" onInput={(event: Event) => this.handleInputChange(event, 'date')} />
+            <div class="error-message">{this.dateError}</div>
+          </div>
+          <button class="submit-button" type="submit">
+            Create
+          </button>
+        </form>
       </div>
     );
   }

@@ -21,6 +21,7 @@ export namespace Components {
     interface CustomButton {
         "color": 'danger' | 'success' | 'secondary';
         "disabled": boolean;
+        "type": 'button' | 'submit' | 'reset';
     }
     interface ExpenseChart {
         "history": RouterHistory;
@@ -128,6 +129,7 @@ declare namespace LocalJSX {
         "color"?: 'danger' | 'success' | 'secondary';
         "disabled"?: boolean;
         "onButtonClick"?: (event: CustomEvent<void>) => void;
+        "type"?: 'button' | 'submit' | 'reset';
     }
     interface ExpenseChart {
         "history"?: RouterHistory;
