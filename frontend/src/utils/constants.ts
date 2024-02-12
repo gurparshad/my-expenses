@@ -42,3 +42,5 @@ export const Categories = [
 ];
 
 export const Years = ['2024', '2023', '2022', '2021', '2020'];
+
+export const ChartColors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D'];

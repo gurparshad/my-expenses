@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
 import { ExpensesData, Month } from '../../types';
-import { Categories, Months, Years } from '../../utils/constants';
+import { Categories, ChartColors, Months, Years } from '../../utils/constants';
 
 @Component({
   tag: 'expense-chart',
@@ -22,7 +22,7 @@ export class ExpenseChart {
   private canvasRef: HTMLCanvasElement;
   private expenseApi: ExpenseApi;
   private chartInstance: Chart;
-  private monthlyCategoryExpenses: { [month: string]: { [category: string]: number } } = {}; // Add state to store monthly category expenses
+  private monthlyCategoryExpenses: { [month: string]: { [category: string]: number } } = {};
 
   private async fetchExpenses() {
     try {
@@ -96,7 +96,7 @@ export class ExpenseChart {
           plugins: {
             legend: {
               labels: {
-                color: '#B4D1D5', // Change the color of the legend labels
+                color: '#B4D1D5',
               },
             },
           },
@@ -132,14 +132,14 @@ export class ExpenseChart {
   }
 
   private generateColor(index: number) {
-    const colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D'];
+    const colors = ChartColors;
     return colors[index % colors.length];
   }
 
   render() {
     return (
       <div>
-        <h1>Chart</h1>
+        <h2>Chart</h2>
         <div>
           <label htmlFor="year-select">Year:</label>
           <select id="year-select" onChange={event => this.handleYearChange(event)}>

@@ -12,7 +12,7 @@ export class ExpenseApi {
     GET_EXPENSE_CATEGORIES: 'expense/categories',
   };
 
-  private handleRequest = async (request: Promise<AxiosResponse<any>>) => request.then(this.handleResult).catch(this.handleError);
+  private handleRequest = async (request: Promise<AxiosResponse<unknown>>) => request.then(this.handleResult).catch(this.handleError);
 
   private handleError(err: AxiosError) {
     //@ts-ignore
@@ -30,7 +30,6 @@ export class ExpenseApi {
   }
 
   public createExpense = async (description: string, amount: number, category: string, date: string) => {
-    console.log('in api');
     return await this.handleRequest(
       this.client.post(this.routes.CREATE_EXPENSE, {
         description,
@@ -56,8 +55,8 @@ export class ExpenseApi {
     return await this.handleRequest(this.client.get(this.routes.GET_EXPENSE_CATEGORIES));
   };
 
-  // TODO: check if we have to add optional arguments or not.
-  public getExpenses = async (pageNumber?: number, pageSize?: number, category?: string, startDate?: string, endDate?: string) => {
+
+  public getExpenses = async (pageNumber: number, pageSize: number, category: string, startDate: string, endDate: string) => {
     return await this.handleRequest(
       this.client.get(this.routes.GET_EXPENSES, {
         params: {

@@ -215,5 +215,12 @@
     "date": "2024-02-26",
     "amount": 42,
     "category": "housing"
+  },
+  {
+    "id": 32,
+    "description": "december xpense watch out",
+    "date": "2024-12-18",
+    "amount": 1200,
+    "category": "entertainment"
   }
 ]

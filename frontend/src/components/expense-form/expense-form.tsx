@@ -112,7 +112,7 @@ export class CreateExpense {
         <form onSubmit={(event: Event) => this.handleSubmit(event)}>
           <div class="input-group">
             <label>Description:</label>
-            <input type="text" value={this.description} onInput={(event: Event) => this.handleInputChange(event, 'description')} />
+            <input type="text" placeholder="Add description..." value={this.description} onInput={(event: Event) => this.handleInputChange(event, 'description')} />
             <div class="error-message">{this.descriptionError}</div>
           </div>
           <div class="input-group">
@@ -134,7 +134,7 @@ export class CreateExpense {
           </div>
           <div class="input-group">
             <label>Date:</label>
-            <input type="text" value={this.date} class="datepicker" onInput={(event: Event) => this.handleInputChange(event, 'date')} />
+            <input placeholder="Add date" type="text" value={this.date} class="datepicker" onInput={(event: Event) => this.handleInputChange(event, 'date')} />
             <div class="error-message">{this.dateError}</div>
           </div>
           <button class="submit-button" type="submit">

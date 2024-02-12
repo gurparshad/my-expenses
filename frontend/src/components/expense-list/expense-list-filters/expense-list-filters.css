@@ -2,13 +2,21 @@
   display: flex;
   gap: 30px;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 select {
-  width: 400px;
+  width: 200px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 14px;
+}
+
+.select-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }

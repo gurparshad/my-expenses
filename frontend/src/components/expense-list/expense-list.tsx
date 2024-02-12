@@ -2,6 +2,7 @@ import { Component, Prop, State, h } from '@stencil/core';
 import { ExpenseApi } from '../../api';
 import { RouterHistory } from '@stencil-community/router';
 import { Expense } from '../../types';
+import { calculateDaysInMonth } from '../../utils/calculateDaysInMonth';
 
 @Component({
   tag: 'expense-list',
@@ -51,9 +52,10 @@ export class AppHome {
   private handleMonthChange(event: Event) {
     this.selectedMonth = (event.target as HTMLSelectElement).value;
     if (this.selectedMonth) {
+      const selectedMonthNumber = parseInt(this.selectedMonth, 10);
+      const daysInMonth = calculateDaysInMonth(this.selectedYear, selectedMonthNumber);
       this.startDate = `${this.selectedYear}-${this.selectedMonth}-01`;
-      // TODO: need a logic to add 31,30 or 28
-      this.endDate = `${this.selectedYear}-${this.selectedMonth}-31`;
+      this.endDate = `${this.selectedYear}-${this.selectedMonth}-${daysInMonth}`;
     } else {
       this.startDate = `${this.selectedYear}-01-01`;
       this.endDate = `${this.selectedYear}-12-31`;
@@ -132,6 +134,7 @@ export class AppHome {
   render() {
     return (
       <div class="app-home">
+        <h2>My Expenses</h2>
         <expense-list-filters
           selectedCategory={this.selectedCategory}
           selectedMonth={this.selectedMonth}
