@@ -15,9 +15,6 @@ export namespace Components {
     }
     interface AppRoot {
     }
-    interface CreateExpense {
-        "history": RouterHistory;
-    }
     interface CustomButton {
         "color": 'danger' | 'success' | 'secondary';
         "disabled": boolean;
@@ -30,9 +27,10 @@ export namespace Components {
         "history": RouterHistory;
         "match": MatchResults;
     }
-    interface ExpenseEdit {
+    interface ExpenseForm {
         "history": RouterHistory;
         "match": MatchResults;
+        "mode": 'create' | 'edit';
     }
     interface ModeSwitcher {
     }
@@ -59,12 +57,6 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
-    interface HTMLCreateExpenseElement extends Components.CreateExpense, HTMLStencilElement {
-    }
-    var HTMLCreateExpenseElement: {
-        prototype: HTMLCreateExpenseElement;
-        new (): HTMLCreateExpenseElement;
-    };
     interface HTMLCustomButtonElement extends Components.CustomButton, HTMLStencilElement {
     }
     var HTMLCustomButtonElement: {
@@ -83,11 +75,11 @@ declare global {
         prototype: HTMLExpenseDetailsElement;
         new (): HTMLExpenseDetailsElement;
     };
-    interface HTMLExpenseEditElement extends Components.ExpenseEdit, HTMLStencilElement {
+    interface HTMLExpenseFormElement extends Components.ExpenseForm, HTMLStencilElement {
     }
-    var HTMLExpenseEditElement: {
-        prototype: HTMLExpenseEditElement;
-        new (): HTMLExpenseEditElement;
+    var HTMLExpenseFormElement: {
+        prototype: HTMLExpenseFormElement;
+        new (): HTMLExpenseFormElement;
     };
     interface HTMLModeSwitcherElement extends Components.ModeSwitcher, HTMLStencilElement {
     }
@@ -105,11 +97,10 @@ declare global {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
-        "create-expense": HTMLCreateExpenseElement;
         "custom-button": HTMLCustomButtonElement;
         "expense-chart": HTMLExpenseChartElement;
         "expense-details": HTMLExpenseDetailsElement;
-        "expense-edit": HTMLExpenseEditElement;
+        "expense-form": HTMLExpenseFormElement;
         "mode-switcher": HTMLModeSwitcherElement;
         "nav-bar": HTMLNavBarElement;
     }
@@ -122,9 +113,6 @@ declare namespace LocalJSX {
         "match"?: MatchResults;
     }
     interface AppRoot {
-    }
-    interface CreateExpense {
-        "history"?: RouterHistory;
     }
     interface CustomButton {
         "color"?: 'danger' | 'success' | 'secondary';
@@ -139,9 +127,10 @@ declare namespace LocalJSX {
         "history"?: RouterHistory;
         "match"?: MatchResults;
     }
-    interface ExpenseEdit {
+    interface ExpenseForm {
         "history"?: RouterHistory;
         "match"?: MatchResults;
+        "mode"?: 'create' | 'edit';
     }
     interface ModeSwitcher {
     }
@@ -152,11 +141,10 @@ declare namespace LocalJSX {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
-        "create-expense": CreateExpense;
         "custom-button": CustomButton;
         "expense-chart": ExpenseChart;
         "expense-details": ExpenseDetails;
-        "expense-edit": ExpenseEdit;
+        "expense-form": ExpenseForm;
         "mode-switcher": ModeSwitcher;
         "nav-bar": NavBar;
     }
@@ -168,11 +156,10 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
-            "create-expense": LocalJSX.CreateExpense & JSXBase.HTMLAttributes<HTMLCreateExpenseElement>;
             "custom-button": LocalJSX.CustomButton & JSXBase.HTMLAttributes<HTMLCustomButtonElement>;
             "expense-chart": LocalJSX.ExpenseChart & JSXBase.HTMLAttributes<HTMLExpenseChartElement>;
             "expense-details": LocalJSX.ExpenseDetails & JSXBase.HTMLAttributes<HTMLExpenseDetailsElement>;
-            "expense-edit": LocalJSX.ExpenseEdit & JSXBase.HTMLAttributes<HTMLExpenseEditElement>;
+            "expense-form": LocalJSX.ExpenseForm & JSXBase.HTMLAttributes<HTMLExpenseFormElement>;
             "mode-switcher": LocalJSX.ModeSwitcher & JSXBase.HTMLAttributes<HTMLModeSwitcherElement>;
             "nav-bar": LocalJSX.NavBar & JSXBase.HTMLAttributes<HTMLNavBarElement>;
         }

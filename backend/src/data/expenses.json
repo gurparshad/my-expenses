@@ -26,5 +26,33 @@
     "date": "2024-02-19",
     "amount": 123,
     "category": "food-and-dining"
+  },
+  {
+    "id": 15,
+    "description": "form",
+    "date": "2024-02-19",
+    "amount": 3,
+    "category": "food-and-dining"
+  },
+  {
+    "id": 16,
+    "description": "without options",
+    "date": "2024-02-15",
+    "amount": 2,
+    "category": "transportation"
+  },
+  {
+    "id": 17,
+    "description": "new test 12345",
+    "date": "2024-02-12",
+    "amount": 123,
+    "category": "food-and-dining"
+  },
+  {
+    "id": 18,
+    "description": "final test ak 47",
+    "date": "2024-02-19",
+    "amount": 123,
+    "category": "housing"
   }
 ]
