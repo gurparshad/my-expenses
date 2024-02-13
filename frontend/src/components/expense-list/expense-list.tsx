@@ -151,7 +151,7 @@ export class AppHome {
               <thead>
                 <tr>
                   <th>Description</th>
-                  <th>Amount</th>
+                  <th>Amount($)</th>
                   <th>Category</th>
                   <th>Date</th>
                   <th></th>

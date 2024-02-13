@@ -6,6 +6,13 @@ import '../custom-button/custom-button';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
+interface ErrorState {
+  description?: string;
+  amount?: string;
+  category?: string;
+  date?: string;
+}
+
 @Component({
   tag: 'expense-form',
   styleUrl: 'expense-form.css',
@@ -20,10 +27,7 @@ export class CreateExpense {
   @State() amount: number = 0;
   @State() category: string = '';
   @State() date: string = '';
-  @State() descriptionError: string = '';
-  @State() amountError: string = '';
-  @State() categoryError: string = '';
-  @State() dateError: string = '';
+  @State() errors: ErrorState = {};
   @Element() private element: HTMLElement;
 
   private expenseApi: ExpenseApi;
@@ -49,30 +53,31 @@ export class CreateExpense {
     flatpickr(input);
   }
 
+  private clearErrors() {
+    this.errors = {};
+  }
+
   private async handleSubmit(event: Event) {
     event.preventDefault();
-    this.descriptionError = '';
-    this.amountError = '';
-    this.categoryError = '';
-    this.dateError = '';
+    this.clearErrors();
 
     if (!this.description.trim()) {
-      this.descriptionError = 'Description is required';
+      this.errors.description = 'Description is required';
     }
 
     if (!this.amount || this.amount <= 0) {
-      this.amountError = 'Amount is required and cannot be 0 or negative';
+      this.errors.amount = 'Amount is required and cannot be 0 or negative';
     }
 
     if (!this.category) {
-      this.categoryError = 'Category is required';
+      this.errors.category = 'Category is required';
     }
 
     if (!this.date) {
-      this.dateError = 'Date is required';
+      this.errors.date = 'Date is required';
     }
 
-    if (this.descriptionError || this.amountError || this.categoryError) {
+    if (Object.keys(this.errors).length > 0) {
       return;
     }
 
@@ -119,12 +124,12 @@ export class CreateExpense {
               value={this.description}
               onInput={(event: Event) => this.handleInputChange(event, 'description')}
             ></custom-input>
-            <div class="error-message">{this.descriptionError}</div>
+            <div class="error-message">{this.errors.description}</div>
           </div>
           <div class="input-group">
-            <label>Amount:</label>
+            <label>Amount($):</label>
             <custom-input type="number" value={this.amount} onInput={(event: Event) => this.handleInputChange(event, 'amount')}></custom-input>
-            <div class="error-message">{this.amountError}</div>
+            <div class="error-message">{this.errors.amount}</div>
           </div>
           <div class="input-group">
             <label>Category:</label>
@@ -136,7 +141,7 @@ export class CreateExpense {
                 </option>
               ))}
             </select>
-            <div class="error-message">{this.categoryError}</div>
+            <div class="error-message">{this.errors.category}</div>
           </div>
           <div class="input-group">
             <label>Date:</label>
@@ -147,7 +152,7 @@ export class CreateExpense {
               class="datepicker"
               onInput={(event: Event) => this.handleInputChange(event, 'date')}
             ></custom-input>
-            <div class="error-message">{this.dateError}</div>
+            <div class="error-message">{this.errors.date}</div>
           </div>
           <button class="submit-button" type="submit">
             {this.mode === 'create' ? 'Create' : 'Update'}

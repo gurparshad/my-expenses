@@ -1,100 +1,114 @@
 [
   {
+    "id": 1,
+    "description": "Dinner at restaurant",
+    "amount": 50,
+    "category": "food-and-dining",
+    "date": "2023-02-15"
+  },
+  {
     "id": 2,
-    "description": "second expense",
-    "date": "2024-03-11",
-    "amount": 100,
-    "category": "housing"
+    "description": "Bus fare",
+    "amount": 10,
+    "category": "transportation",
+    "date": "2023-02-20"
+  },
+  {
+    "id": 3,
+    "description": "Rent",
+    "amount": 1000,
+    "category": "housing",
+    "date": "2023-03-01"
   },
   {
     "id": 4,
-    "description": "december expense",
-    "date": "2024-12-17",
-    "amount": 300,
-    "category": "transportation"
+    "description": "Electricity bill",
+    "amount": 80,
+    "category": "utilities",
+    "date": "2023-03-05"
+  },
+  {
+    "id": 5,
+    "description": "Movie tickets",
+    "amount": 25,
+    "category": "entertainment",
+    "date": "2023-03-10"
   },
   {
     "id": 6,
-    "description": "my expense",
-    "date": "2024-7-17",
-    "amount": 350,
-    "category": "housing"
+    "description": "Gym membership",
+    "amount": 30,
+    "category": "health-and-fitness",
+    "date": "2023-04-01"
   },
   {
     "id": 7,
-    "description": "my expense",
-    "date": "2024-7-17",
+    "description": "Clothing",
     "amount": 50,
-    "category": "shopping"
+    "category": "shopping",
+    "date": "2023-04-10"
   },
   {
     "id": 8,
-    "description": "maal",
-    "date": "2024-03-20",
-    "amount": 23,
-    "category": "personal-care"
+    "description": "Flight ticket",
+    "amount": 300,
+    "category": "travel",
+    "date": "2023-05-01"
   },
   {
     "id": 9,
-    "description": "contants",
-    "date": "2024-01-09",
-    "amount": 23,
-    "category": "food-and-dining"
+    "description": "Textbooks",
+    "amount": 150,
+    "category": "education",
+    "date": "2023-06-01"
   },
   {
     "id": 10,
-    "description": "new controller testing 4009",
-    "date": "2024-04-12",
-    "amount": 100,
-    "category": "food-and-dining"
+    "description": "Haircut",
+    "amount": 20,
+    "category": "personal-care",
+    "date": "2023-07-01"
   },
   {
     "id": 11,
-    "description": "updated 2 time new controller testing 40092",
-    "amount": 100,
-    "category": "food-and-dining",
-    "date": "2024-04-12"
+    "description": "Miscellaneous",
+    "amount": 50,
+    "category": "others",
+    "date": "2023-08-01"
   },
   {
     "id": 12,
-    "description": "string new one",
-    "amount": 80,
-    "category": "education",
-    "date": "2024-02-13"
-  },
-  {
-    "id": 13,
-    "description": "asdasdsadsaddsa",
-    "amount": 4,
-    "category": "transportation",
-    "date": "2024-02-06"
-  },
-  {
-    "id": 14,
-    "description": "custom input test",
-    "amount": 11,
-    "category": "transportation",
+    "description": "iphone",
+    "amount": 1200,
+    "category": "shopping",
     "date": "2024-02-20"
   },
   {
+    "id": 13,
+    "description": "school fee",
+    "amount": 200,
+    "category": "education",
+    "date": "2024-04-23"
+  },
+  {
+    "id": 14,
+    "description": "massage",
+    "amount": 50,
+    "category": "health-and-fitness",
+    "date": "2024-04-23"
+  },
+  {
     "id": 15,
-    "description": "date custom",
-    "amount": 3,
-    "category": "shopping",
-    "date": "2024-02-14"
+    "description": "groceries",
+    "amount": 400,
+    "category": "housing",
+    "date": "2024-06-23"
   },
   {
     "id": 16,
-    "description": "custom final 2",
-    "amount": 11,
-    "category": "entertainment",
-    "date": "2024-02-29"
-  },
-  {
-    "id": 17,
-    "description": "yes this is final test",
-    "amount": 13,
-    "category": "transportation",
-    "date": "2024-02-19"
+    "description": "college fee",
+    "amount": 1200,
+    "category": "education",
+    "date": "2024-12-23"
   }
 ]
