@@ -60,8 +60,8 @@ export class CreateExpense {
       this.descriptionError = 'Description is required';
     }
 
-    if (!this.amount) {
-      this.amountError = 'Amount is required';
+    if (!this.amount || this.amount <= 0) {
+      this.amountError = 'Amount is required and cannot be 0 or negative';
     }
 
     if (!this.category) {
@@ -92,6 +92,7 @@ export class CreateExpense {
   }
 
   private handleInputChange(event: Event, property: string) {
+    console.log('in handle input change');
     let value = (event.target as HTMLInputElement).value;
     if (property === 'amount') {
       this[property] = Number(value);
@@ -112,12 +113,17 @@ export class CreateExpense {
         <form onSubmit={(event: Event) => this.handleSubmit(event)}>
           <div class="input-group">
             <label>Description:</label>
-            <input type="text" placeholder="Add description..." value={this.description} onInput={(event: Event) => this.handleInputChange(event, 'description')} />
+            <custom-input
+              type="text"
+              placeholder="Add description..."
+              value={this.description}
+              onInput={(event: Event) => this.handleInputChange(event, 'description')}
+            ></custom-input>
             <div class="error-message">{this.descriptionError}</div>
           </div>
           <div class="input-group">
             <label>Amount:</label>
-            <input type="number" value={this.amount} onInput={(event: Event) => this.handleInputChange(event, 'amount')} />
+            <custom-input type="number" value={this.amount} onInput={(event: Event) => this.handleInputChange(event, 'amount')}></custom-input>
             <div class="error-message">{this.amountError}</div>
           </div>
           <div class="input-group">
@@ -134,7 +140,7 @@ export class CreateExpense {
           </div>
           <div class="input-group">
             <label>Date:</label>
-            <input placeholder="Add date" type="text" value={this.date} class="datepicker" onInput={(event: Event) => this.handleInputChange(event, 'date')} />
+            <custom-input placeholder="Add date" type="text" value={this.date} class="datepicker" onInput={(event: Event) => this.handleInputChange(event, 'date')}></custom-input>
             <div class="error-message">{this.dateError}</div>
           </div>
           <button class="submit-button" type="submit">

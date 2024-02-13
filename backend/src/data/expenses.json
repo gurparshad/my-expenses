@@ -61,5 +61,33 @@
     "amount": 80,
     "category": "education",
     "date": "2024-02-13"
+  },
+  {
+    "id": 13,
+    "description": "asdasdsadsaddsa",
+    "amount": 4,
+    "category": "transportation",
+    "date": "2024-02-06"
+  },
+  {
+    "id": 14,
+    "description": "custom input test",
+    "amount": 11,
+    "category": "transportation",
+    "date": "2024-02-20"
+  },
+  {
+    "id": 15,
+    "description": "date custom",
+    "amount": 3,
+    "category": "shopping",
+    "date": "2024-02-14"
+  },
+  {
+    "id": 16,
+    "description": "custom final 2",
+    "amount": 11,
+    "category": "entertainment",
+    "date": "2024-02-29"
   }
 ]

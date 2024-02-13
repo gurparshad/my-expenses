@@ -14,6 +14,11 @@ export namespace Components {
         "disabled": boolean;
         "type": 'button' | 'submit' | 'reset';
     }
+    interface CustomInput {
+        "placeholder": string;
+        "type": string;
+        "value": string | number;
+    }
     interface ExpenseChart {
         "history": RouterHistory;
     }
@@ -59,6 +64,12 @@ declare global {
     var HTMLCustomButtonElement: {
         prototype: HTMLCustomButtonElement;
         new (): HTMLCustomButtonElement;
+    };
+    interface HTMLCustomInputElement extends Components.CustomInput, HTMLStencilElement {
+    }
+    var HTMLCustomInputElement: {
+        prototype: HTMLCustomInputElement;
+        new (): HTMLCustomInputElement;
     };
     interface HTMLExpenseChartElement extends Components.ExpenseChart, HTMLStencilElement {
     }
@@ -111,6 +122,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
         "custom-button": HTMLCustomButtonElement;
+        "custom-input": HTMLCustomInputElement;
         "expense-chart": HTMLExpenseChartElement;
         "expense-details": HTMLExpenseDetailsElement;
         "expense-form": HTMLExpenseFormElement;
@@ -129,6 +141,12 @@ declare namespace LocalJSX {
         "disabled"?: boolean;
         "onButtonClick"?: (event: CustomEvent<void>) => void;
         "type"?: 'button' | 'submit' | 'reset';
+    }
+    interface CustomInput {
+        "onInputChange"?: (event: CustomEvent<string>) => void;
+        "placeholder"?: string;
+        "type"?: string;
+        "value"?: string | number;
     }
     interface ExpenseChart {
         "history"?: RouterHistory;
@@ -167,6 +185,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "app-root": AppRoot;
         "custom-button": CustomButton;
+        "custom-input": CustomInput;
         "expense-chart": ExpenseChart;
         "expense-details": ExpenseDetails;
         "expense-form": ExpenseForm;
@@ -183,6 +202,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "custom-button": LocalJSX.CustomButton & JSXBase.HTMLAttributes<HTMLCustomButtonElement>;
+            "custom-input": LocalJSX.CustomInput & JSXBase.HTMLAttributes<HTMLCustomInputElement>;
             "expense-chart": LocalJSX.ExpenseChart & JSXBase.HTMLAttributes<HTMLExpenseChartElement>;
             "expense-details": LocalJSX.ExpenseDetails & JSXBase.HTMLAttributes<HTMLExpenseDetailsElement>;
             "expense-form": LocalJSX.ExpenseForm & JSXBase.HTMLAttributes<HTMLExpenseFormElement>;
