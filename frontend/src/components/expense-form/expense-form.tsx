@@ -140,7 +140,13 @@ export class CreateExpense {
           </div>
           <div class="input-group">
             <label>Date:</label>
-            <custom-input placeholder="Add date" type="text" value={this.date} class="datepicker" onInput={(event: Event) => this.handleInputChange(event, 'date')}></custom-input>
+            <custom-input
+              placeholder="Add date"
+              type="text"
+              value={this.date}
+              class="datepicker"
+              onInput={(event: Event) => this.handleInputChange(event, 'date')}
+            ></custom-input>
             <div class="error-message">{this.dateError}</div>
           </div>
           <button class="submit-button" type="submit">

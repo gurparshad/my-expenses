@@ -16,5 +16,5 @@
     "@typescript-eslint/no-unused-vars": "off",
     "consistent-return": "warn",
     "no-extra-semi": "warn"
-    }
+  }
 }
