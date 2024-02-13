@@ -1,8 +1,8 @@
 import { readDataFromFile } from '../services/readDataFromFile';
-import { Expense, NewExpense } from '../../utils/types';
 import { Request, Response } from 'express';
 import { writeDataToFile } from '../services/writeDataToFile';
 import { validateExpenseData } from '../validators/expenseValidator';
+import { Expense, NewExpense } from '../model';
 
 export const getExpenses = async (req: Request, res: Response): Promise<void> => {
   try {

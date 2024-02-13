@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { ExpenseCategories } from '../../utils/constants';
-import { NewExpense } from '../../utils/types';
+import { NewExpense } from '../model';
 
 export function validateExpenseData(req: Request, res: Response): NewExpense | undefined {
   const { description, amount, category, date } = req.body;

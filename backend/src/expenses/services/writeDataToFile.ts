@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Expense } from '../../utils/types';
+import { Expense } from '../model';
 
 export const writeDataToFile = (data: Expense[]) => {
   const jsonFilePath = path.join(__dirname, '../../data/expenses.json');
