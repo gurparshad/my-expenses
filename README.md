@@ -2,6 +2,17 @@
 
 This is a fullstack application built in express js and stencil js. which helps users to track there expenses.
 
+## Key Features 
+- User can create an expense by adding description, amount, date and category.
+- Update an expense
+- Delete an expense
+- List of expenses
+- Chart view of expense
+- Month, year and category filter.
+- Pagination
+- Dark and Light Mode
+- Good coding practices 
+
 ## Steps to run the application
 
 - Clone the repo by running the command "git clone https://github.com/gurparshad/my-expenses.git"
@@ -35,6 +46,7 @@ This is a fullstack application built in express js and stencil js. which helps 
    - Axios
    - Chart js
    - Flatpickr
+   - Ionicons
 
 ### Backend
   - Typescript
@@ -42,4 +54,14 @@ This is a fullstack application built in express js and stencil js. which helps 
   - Swagger
   - Prettier
   - Eslint
- 
+
+## Further improvments
+As time was limited, some other improvements would be 
+- Better UI
+- Custom date filter
+- implement Docker
+- Dialog box before deleting a expense.
+- Instead of alert a success message compnnet after deleteion, creation and update.
+- Expense Categories can be fetched from the API, currently they are constants.
+- Loading component.
+- Last but not the least Test case :)
