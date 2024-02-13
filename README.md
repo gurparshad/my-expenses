@@ -64,4 +64,6 @@ As time was limited, some other improvements would be
 - Instead of alert a success message compnnet after deleteion, creation and update.
 - Expense Categories can be fetched from the API, currently they are constants.
 - Loading component.
+- New expenses go at the bottom of the list, bring new once on the top.
+- Also currently it does not show the expenses after 2024. if user add future expense, its not visible in the list.
 - Last but not the least Test case :)
