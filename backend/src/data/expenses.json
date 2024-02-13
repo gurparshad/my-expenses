@@ -40,5 +40,26 @@
     "date": "2024-01-09",
     "amount": 23,
     "category": "food-and-dining"
+  },
+  {
+    "id": 10,
+    "description": "new controller testing 4009",
+    "date": "2024-04-12",
+    "amount": 100,
+    "category": "food-and-dining"
+  },
+  {
+    "id": 11,
+    "description": "updated 2 time new controller testing 40092",
+    "amount": 100,
+    "category": "food-and-dining",
+    "date": "2024-04-12"
+  },
+  {
+    "id": 12,
+    "description": "new controller testing 40092",
+    "amount": 109,
+    "category": "education",
+    "date": "2024-08-12"
   }
 ]

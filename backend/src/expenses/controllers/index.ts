@@ -1,10 +1,10 @@
-import { ExpenseCategories } from '../../utils/constants';
-import { readDataFromFile } from '../../utils/readDataFromFile';
-import { Expense } from '../../utils/types';
+import { readDataFromFile } from '../services/readDataFromFile';
+import { Expense, NewExpense } from '../../utils/types';
 import { Request, Response } from 'express';
-import { writeDataToFile } from '../../utils/writeDataToFile';
+import { writeDataToFile } from '../services/writeDataToFile';
+import { validateExpenseData } from '../validators/expenseValidator';
 
-export const getExpenses = async (req: Request, res: Response) => {
+export const getExpenses = async (req: Request, res: Response): Promise<void> => {
   try {
     let expenses: Expense[] = await readDataFromFile();
     const { startDate, endDate, category, page, pageSize } = req.query;
@@ -47,7 +47,7 @@ export const getExpenses = async (req: Request, res: Response) => {
   }
 };
 
-export const getExpense = async (req: Request, res: Response) => {
+export const getExpense = async (req: Request, res: Response): Promise<void> => {
   const expenseId = req.params.expenseId;
   try {
     const expenses: Expense[] = await readDataFromFile();
@@ -64,23 +64,16 @@ export const getExpense = async (req: Request, res: Response) => {
   }
 };
 
-export const createExpense = async (req: Request, res: Response) => {
+export const createExpense = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { description, amount, category, date } = req.body;
-
-    if (!description || !amount || !category || !date) {
-      return res.status(400).json({ error: 'Description, amount, category and Date are required fields and amount must not be zero.' });
-    }
-
-    if (!Object.values(ExpenseCategories).includes(category)) {
-      return res.status(400).json({ error: 'Invalid category. Please provide one of the predefined categories' });
-    }
+    const validatedExpense: NewExpense | undefined = validateExpenseData(req, res);
+    if (!validatedExpense) return;
 
     const expenses: Expense[] = await readDataFromFile();
 
     const id = expenses.length > 0 ? Math.max(...expenses.map((e: Expense) => e.id)) + 1 : 1;
 
-    const newExpense = { id, description, date, amount, category };
+    const newExpense = { id, ...validatedExpense };
 
     expenses.push(newExpense);
 
@@ -93,33 +86,22 @@ export const createExpense = async (req: Request, res: Response) => {
   }
 };
 
-export const updateExpense = async (req: Request, res: Response) => {
+export const updateExpense = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
-    const { description, amount, category, date } = req.body;
-    console.log('description, amount, category, date-->>', description, amount, category, date);
-
-    if (!description || !amount || !category || !date) {
-      return res.status(400).json({ error: 'Description, amount, category and Date are required fields and amount must not be zero.' });
-    }
-
-    if (!Object.values(ExpenseCategories).includes(category)) {
-      return res.status(400).json({ error: 'Invalid category. Please provide one of the predefined categories' });
-    }
+    const validatedExpense: NewExpense | undefined = validateExpenseData(req, res);
+    if (!validatedExpense) return;
 
     const expenses: Expense[] = await readDataFromFile();
 
     const index = expenses.findIndex((expense: Expense) => expense.id === id);
 
     if (index === -1) {
-      return res.status(404).json({ error: 'Expense not found' });
+      res.status(404).json({ error: 'Expense not found' });
+      return;
     }
 
-    expenses[index].description = description ?? expenses[index].description;
-    expenses[index].amount = amount ?? expenses[index].amount;
-    expenses[index].date = date ?? expenses[index].date;
-    expenses[index].category = category ?? expenses[index].category;
-
+    Object.assign(expenses[index], validatedExpense);
     await writeDataToFile(expenses);
 
     res.json(expenses[index]);
@@ -129,7 +111,7 @@ export const updateExpense = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteExpense = async (req: Request, res: Response) => {
+export const deleteExpense = async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
 
@@ -138,7 +120,8 @@ export const deleteExpense = async (req: Request, res: Response) => {
     const index = expenses.findIndex((expense: Expense) => expense.id === id);
 
     if (index === -1) {
-      return res.status(404).json({ error: 'Expense not found' });
+      res.status(404).json({ error: 'Expense not found' });
+      return;
     }
 
     expenses.splice(index, 1);
