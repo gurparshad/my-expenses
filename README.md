@@ -2,6 +2,10 @@
 
 This is a fullstack application built in express js and stencil js. which helps users to track there expenses.
 
+## Video Demo
+https://drive.google.com/file/d/1K0RvtcimUc02x8Fr9laD7FAKlSKq4CO8/view?usp=sharing
+
+
 ## Key Features 
 - User can create an expense by adding description, amount, date and category.
 - Update an expense
